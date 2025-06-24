@@ -1,16 +1,14 @@
 import Hero from "../components/Hero"
 import Testimonials from "../components/Testimonials"
-import CTA from "../components/CTA"
-import TopNavbar from "@/components/Topnavbar"
-import SecondNavbar from "../components/SecondNavbar";
 import { packageData } from "@/data/packages";
 import PackagesSection from "../components/PackageSection";
+import DubaiCityTourSection from "../components/DubaiCityTourSection";
+import DiscoverSection from "../components/DiscoverSection";
 
 export default function HomePage() {
   return (
     <>
-      <TopNavbar />
-      <SecondNavbar />  
+      
       <Hero />
       {packageData.map((group) => (
         <PackagesSection
@@ -20,8 +18,9 @@ export default function HomePage() {
           cards={group.cards}
         />
       ))}
+      <DubaiCityTourSection />
+      <DiscoverSection />
       <Testimonials />
-      <CTA />
     </>
   );
 }

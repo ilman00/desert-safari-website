@@ -29,13 +29,13 @@ export default function SecondNavbar() {
               <Link href="/" className="nav-link">Home</Link>
             </li>
             <li className="nav-item">
-              <Link href="/#packages" className="nav-link">Our Safari Packages</Link>
+              <Link href="/packages" className="nav-link">Our Safari Packages</Link>
             </li>
             <li className="nav-item">
               <Link href="/gallery" className="nav-link">Our Gallery</Link>
             </li>
             <li className="nav-item">
-              <Link href="/about" className="nav-link">About Us</Link>
+              <Link href="/about-us" className="nav-link">About Us</Link>
             </li>
             <li className="nav-item">
               <Link href="/contact" className="nav-link">Contact Us</Link>

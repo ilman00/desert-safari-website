@@ -1,7 +1,7 @@
 // components/TopNavbar.js
 export default function TopNavbar() {
   return (
-    <div className="text-light py-3 " style={{ backgroundColor: "#1B7D75" }}>
+    <div className="text-light py-3 " style={{ backgroundColor: "#005a5a" }}>
       <div className="ps-3 pe-3 d-flex flex-column flex-md-row justify-content-between align-items-center">
         {/* Left Side: Contact Info */}
         <div className="mb-2 mb-md-0">

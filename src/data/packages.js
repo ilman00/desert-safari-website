@@ -14,7 +14,7 @@ const features = [
   '💃 Belly Dance',
   '🔥 Fire Show',
   '🎭 Tanura Show',
-  '🍖 BBQ & Buffet Dinner (Veg & Non-Veg)',
+  '🍖 BBQ & Buffet Dinner',
   '⏰ Dropoff Time: 9:30 – 9:45 pm'
 ];
 
@@ -52,23 +52,23 @@ export const packageData = [
           image: "/images/Liwa-Oasis-A-Desert-Escape-by-tripscpae-tourism-1-3.png",
           title: "Basic Evening Safari",
           price: "89 AED | Per Person",
-          features:privateFeatures, // same icon + text array as before
+          features:features, // same icon + text array as before
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/Gallery-Image-1-2.png",
-          title: "Basic Evening Safari",
-          price: "89 AED | Per Person",
-          features:privateFeatures, // same icon + text array as before
+          title: "Safari With Quad Bikes",
+          price: "199 AED | Per Person",
+          features:[...features, "🚴‍♂️ 30 Minutes Quad Bike Ride"], // same icon + text array as before
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/Gallery-Image-1-1-1.png",
           title: "Basic Evening Safari",
-          price: "89 AED | Per Person",
-          features:privateFeatures, // same icon + text array as before
+          price: "149 AED | Per Person",
+          features:[...features, "💎 VIP Table Service", "❄️ AC Seating Area", "🍽️ Unlimited Buffet"], // same icon + text array as before
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
@@ -81,23 +81,23 @@ export const packageData = [
       cards: [
         {
           image: "/images/Morning-pic-1.png",
-          title: "Safari with Quad Bike",
+          title: "Basic Morning Safari",
           price: "199 AED | Per Person",
-          features: features,
+          features: ["Pickup from your location", "🏨 Pick and drop from hotel/home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💎 Private Desert Safari", "💺 VIP seating with sunset views", "🍖 Luxury BBQ dinner under the stars", "📸 Professional photography services"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/morning-pic-2.png",
-          title: "Safari with Quad Bike",
+          title: "Morning Safari With Quad Bike",
           price: "199 AED | Per Person",
-          features: features,
+          features: ["Pickup from your location", "🏨 Pick and drop from hotel and home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike (30 Minutes)", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💨 Hubbly Bubblee (Sheesha)", "🍽️ BBQ Dinner (Veg & Non-Veg Options)", "💺 VIP seating with sunset views", "🌸 Henna Painting", "🎭 Traditional Tanura Show"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/morning-pic-3.png",
-          title: "Safari with Quad Bike",
+          title: "VIP Morning Safari",
           price: "199 AED | Per Person",
           features: features,
           whatsappLink: "https://wa.me/971501234567",
@@ -133,6 +133,38 @@ export const packageData = [
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
+        
+      ],
+    },
+    {
+      id: "dune-buggy",
+      title: "Desert safari with Dune Buggy",
+      cards: [
+        {
+          image: "/images/private-desert-safari-1.png",
+          title: "PRIVATE DESERT SAFARI WITH SAHARA FORTNESS DINNER",
+          price: "699 AED | Per Group",
+          features: features,
+          whatsappLink: "https://wa.me/971501234567",
+          bookLink: "/book",
+        },
+        {
+          image: "/images/private-desert-safari-2.png",
+          title: "PRIVATE DESERT SAFARI AT BAB AL SHAMS RESORT",
+          price: "1049  AED | Per Group",
+          features: features,
+          whatsappLink: "https://wa.me/971501234567",
+          bookLink: "/book",
+        },
+        {
+          image: "/images/private-desert-safari-3.png",
+          title: "DESERT SAFARI SHOW WITH FALCONRY WITH DINNER",
+          price: "1399  AED | Per Person",
+          features: features,
+          whatsappLink: "https://wa.me/971501234567",
+          bookLink: "/book",
+        },
+        
       ],
     },
     // Add more groups like VIP, Morning, Overnight, etc.
