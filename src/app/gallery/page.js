@@ -23,7 +23,7 @@ export default function GallaryPage() {
 
             <section className="container text-center py-4">
                 <p className="text-muted">Incredible Moments</p>
-                <h2 className="fw-bold">Journey Of Faith, Crafted by Almahyra's Expert Hands</h2>
+                <h2 className="fw-bold">Journey Of Faith, Crafted by Almahyra&apos;s Expert Hands</h2>
             </section>
 
             <section className="container-fluid">
@@ -53,7 +53,7 @@ export default function GallaryPage() {
                         Discover More
                     </h2>
                     <h4 className="mb-3 h5 h4-md h3-lg">
-                        Journey with Purpose: Almahyra's Hajj and Umrah Excellence
+                        Journey with Purpose: Almahyra&apos;s Hajj and Umrah Excellence
                     </h4>
                     <p className="mb-4 fs-6 fs-md-5 fs-lg-4">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,

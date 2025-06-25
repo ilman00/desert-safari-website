@@ -1,7 +1,7 @@
 import PackagesSection from "@/components/PackageSection"
 import { packageData } from "@/data/packages";
 import DubaiCityTourSection from "@/components/DubaiCityTourSection";
-export default function(){
+export default function Packages(){
     return (
         <>
         {packageData.map((group) => (
