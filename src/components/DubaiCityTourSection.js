@@ -1,5 +1,5 @@
 import DubaiCityTourCard from "./DubaiCityTourCard"; // Make sure this path matches your file structure
-
+import Image from "next/image";
 export default function CardsSection() {
   const cardsData = [
 
@@ -31,7 +31,7 @@ export default function CardsSection() {
         "A city tour will show you Abu Dhabi’s changes, but a desert safari Dubai experience will reveal the true essence of Arabian culture. This UAE city tour blends old and modern traditions, life, and people. On the city trip, we’ll visit Sheik Zayed and explore the breathtaking desert landscapes, offering a unique blend of adventure and culture in Dubai’s heart.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
-    },{
+    }, {
       title: "Ferrari World Abu Dhabi",
       image: "/images/ferrari-world-abu-dhabi.webp",
       price: "265 AED | PER PERSON",
@@ -49,7 +49,7 @@ export default function CardsSection() {
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     }
-    
+
   ];
 
   return (
@@ -63,7 +63,13 @@ export default function CardsSection() {
             We dedicate the experts of qualified and skilled tour guides at Dubai Guide Tours to presenting the best
             <strong> Dubai tour</strong>. Here is the unlock why choose <strong>Safari Desert AE</strong>.
           </p>
-          <img src="/images/dubai-city-tours-1.jpg" className="img-fluid rounded" alt="Dubai City Tour" />
+          <Image
+            src="/images/dubai-city-tours-1.jpg"
+            alt="Dubai City Tour"
+            width={800} // adjust based on actual image size or desired ratio
+            height={500}
+            className="img-fluid rounded"
+          />
         </div>
 
         {/* Cards Grid */}

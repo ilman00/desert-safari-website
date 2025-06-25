@@ -1,6 +1,6 @@
 // components/Footer.js
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
-
+import Image from "next/image";
 export default function Footer() {
   return (
     <footer
@@ -13,10 +13,11 @@ export default function Footer() {
         <div className="row gy-4">
           {/* Company Info */}
           <div className="col-12 col-md-6 col-lg-3">
-            <img
+            <Image
               src="/images/safari-desert.png"
               alt="Safari Desert"
-              style={{ width: "180px", height: "auto" }}
+              width={180}
+              height={60}
               className="mb-3"
             />
             <p>

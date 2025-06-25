@@ -3,7 +3,7 @@
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import "animate.css";
-
+import Image from "next/image";
 
 export default function PackageCard({ image, title, price, features, whatsappLink, bookLink }) {
   const [ref, inView] = useInView({
@@ -33,7 +33,15 @@ export default function PackageCard({ image, title, price, features, whatsappLin
     >
 
       {/* Package Image */}
-      <img src={image} className="card-img-top" alt={`${title} in Dubai`} />
+      <Image
+      src={image}
+      alt={`${title} in Dubai`}
+      width={400}
+      height={250}
+      className="card-img-top img-fluid"
+      style={{ objectFit: "cover" }}
+    />
+    
 
       {/* Package Details */}
       <div className="card-body">

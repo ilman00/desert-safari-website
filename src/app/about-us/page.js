@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export default function AboutUs() {
   return (
     <>
@@ -26,7 +28,7 @@ export default function AboutUs() {
       <section className="container py-5">
         <div className="row align-items-center">
           <div className="col-md-6 mb-4 mb-md-0">
-            <img src="/images/dubai-city-tours-1.jpg" alt="Our Story" className="img-fluid rounded shadow" />
+            <Image src="/images/dubai-city-tours-1.jpg" width={800} height={600} alt="Our Story" className="img-fluid rounded shadow" />
           </div>
           <div className="col-md-6">
             <h3 className="fw-bold">Our Story</h3>

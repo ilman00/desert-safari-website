@@ -1,6 +1,6 @@
 'use client';
 
-
+import Image from "next/image";
 
 export default function Testimonials() {
  
@@ -58,7 +58,7 @@ export default function Testimonials() {
                       <i className="bi bi-quote text-warning fs-2 mb-3"></i>
                       <p className="text-muted">{t.message}</p>
                       <div className="d-flex align-items-center mt-3">
-                        <img
+                        <Image
                           src={t.image}
                           alt={t.name}
                           className="rounded-circle me-3"

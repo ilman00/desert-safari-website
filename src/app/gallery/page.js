@@ -35,10 +35,10 @@ export default function GallaryPage() {
             </section>
             {/*src="/images/Gallery/gallery-background-2.jpg"*/}
             <section
-                className="position-relative text-white d-flex align-items-center justify-content-center text-center"
+                className="position-relative text-white d-flex align-items-center justify-content-center text-center mt-5"
                 style={{
                     height: "100vh",
-                    backgroundImage: "url('/images/Gallery/gallery-background-2.jpg')",
+                    backgroundImage: "url('/images/Gallery/gallery-8.jpg')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
