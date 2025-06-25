@@ -1,4 +1,4 @@
-export default function (){
+export default function GallaryHero(){
     return (
         <>
         <section className="position-relative">

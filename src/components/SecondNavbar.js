@@ -38,7 +38,7 @@ export default function SecondNavbar() {
               <Link href="/about-us" className="nav-link">About Us</Link>
             </li>
             <li className="nav-item">
-              <Link href="/contact" className="nav-link">Contact Us</Link>
+              <Link href="/contact-us" className="nav-link">Contact Us</Link>
             </li>
             <li className="nav-item">
               <Link href="/faqs" className="nav-link">FAQs</Link>
