@@ -106,7 +106,7 @@ export default function Footer() {
 
           {/* Our Services */}
           <div className="col-12 col-md-6 col-lg-3">
-            <h5 className="mb-3 text-uppercase">Our Services</h5>
+            <h5 className="mb-3 text-uppercase text-warning">Our Services</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
                 <a href="#evening" className="text-light text-decoration-none">Evening Desert Safari</a>
@@ -128,7 +128,7 @@ export default function Footer() {
 
           {/* Support */}
           <div className="col-12 col-md-6 col-lg-3">
-            <h5 className="mb-3 text-uppercase">Support</h5>
+            <h5 className="mb-3 text-uppercase text-warning">Support</h5>
             <ul className="list-unstyled">
               <li className="mb-2 text-light">Help Center</li>
               <li className="mb-2 text-light">Ticket Support</li>
@@ -139,7 +139,7 @@ export default function Footer() {
 
           {/* Company */}
           <div className="col-12 col-md-6 col-lg-3">
-            <h5 className="mb-3 text-uppercase">Company</h5>
+            <h5 className="mb-3 text-uppercase text-warning">Company</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
                 <a href="#" className="text-light text-decoration-none">About Us</a>

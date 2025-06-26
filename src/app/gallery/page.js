@@ -19,7 +19,9 @@ const images = [
 export default function GallaryPage() {
     return (
         <>
-            <GallaryHero />
+            <GallaryHero title="Our Gallery" 
+                heroText="Your Trusted Guide to Spiritual Discoveries"
+            />
 
             <section className="container text-center py-4">
                 <p className="text-muted">Incredible Moments</p>
@@ -59,7 +61,7 @@ export default function GallaryPage() {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
                         luctus nec ullamcorper mattis, pulvinar dapibus leo.
                     </p>
-                    <a href="/booking" className="btn btn-success btn-lg px-4">
+                    <a href="/booking" className="btn btn-warning btn-lg px-4">
                         Book Now
                     </a>
                 </div>

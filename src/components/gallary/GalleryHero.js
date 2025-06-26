@@ -1,9 +1,10 @@
-export default function GallaryHero(){
+import Image from "next/image"
+export default function GallaryHero({title, heroText}){
     return (
         <>
         <section className="position-relative">
         {/* Background Video */}
-        <img src="/images/gallary-background-img.jpg"
+        <Image src="/images/gallary-background-img.jpg" width={800} height={600}
           className="w-100 position-absolute top-0 start-0 h-100 object-fit-cover"
           style={{ zIndex: -2 }}
         />
@@ -24,8 +25,8 @@ export default function GallaryHero(){
           className="container text-light text-center d-flex flex-column justify-content-center align-items-center"
           style={{ minHeight: '100vh', zIndex: 1 }}
         >
-          <h1 className="display-4 fw-bold">Our Gallery</h1>
-          <p className="lead">Your Trusted Guide to Spiritual Discoveries</p>
+          <h1 className="display-4 fw-bold">{title}</h1>
+          <p className="lead" style={{fontWeight: "400", fontSize:"2rem"}}>{heroText}</p>
           
         </div>
       </section>
