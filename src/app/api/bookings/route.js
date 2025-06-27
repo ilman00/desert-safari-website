@@ -1,6 +1,6 @@
 // app/api/bookings/route.js
 import { dbConnect } from "@/lib/dbConnect";
-import Booking from "@/models/Booking";
+import Booking from "../../../models/Booking";
 
 export async function POST(req) {
   try {
