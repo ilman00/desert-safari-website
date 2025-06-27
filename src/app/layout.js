@@ -6,10 +6,14 @@ import BootstrapClient from "../components/BootstrapClient";
 import SecondNavbar from '@/components/SecondNavbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton';
+import { BookingProvider } from "@/components/BookingContext";
+import BookingModal from "@/components/BookingModal";
 export const metadata = {
   title: 'Desert Safari Dubai | Best Safari Experience',
   description: 'Enjoy the best desert safari in Dubai with thrilling adventures and affordable packages.',
 };
+
+
 
 export default function RootLayout({ children }) {
   return (
@@ -21,12 +25,15 @@ export default function RootLayout({ children }) {
         />
       </head>
       <BootstrapClient />
-      <body style={{fontWeight: "400", fontSize: "20px"}}>
-      <TopNavbar />
-      <SecondNavbar />  
-      {children}
-      <Footer />
-      <WhatsAppFloatingButton />
+      <body style={{ fontSize: "20px" }}>
+        <BookingProvider>
+          <TopNavbar />
+          <SecondNavbar />
+          {children}
+          <Footer />
+          <BookingModal />
+          <WhatsAppFloatingButton />
+        </BookingProvider>
       </body>
     </html>
   );

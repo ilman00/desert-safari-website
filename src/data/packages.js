@@ -82,7 +82,7 @@ export const packageData = [
         {
           image: "/images/Morning-pic-1.png",
           title: "Basic Morning Safari",
-          price: "199 AED | Per Person",
+          price: "119 AED | Per Person",
           features: ["Pickup from your location", "🏨 Pick and drop from hotel/home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💎 Private Desert Safari", "💺 VIP seating with sunset views", "🍖 Luxury BBQ dinner under the stars", "📸 Professional photography services"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
@@ -90,7 +90,7 @@ export const packageData = [
         {
           image: "/images/morning-pic-2.png",
           title: "Morning Safari With Quad Bike",
-          price: "199 AED | Per Person",
+          price: "249 AED | Per Person",
           features: ["Pickup from your location", "🏨 Pick and drop from hotel and home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike (30 Minutes)", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💨 Hubbly Bubblee (Sheesha)", "🍽️ BBQ Dinner (Veg & Non-Veg Options)", "💺 VIP seating with sunset views", "🌸 Henna Painting", "🎭 Traditional Tanura Show"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
@@ -98,7 +98,7 @@ export const packageData = [
         {
           image: "/images/morning-pic-3.png",
           title: "VIP Morning Safari",
-          price: "199 AED | Per Person",
+          price: "149 AED | Per Person",
           features: features,
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",

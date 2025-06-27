@@ -1,4 +1,10 @@
+"use client";
+
+import { useBooking } from "@/components/BookingContext";
+
 export default function DiscoverSection() {
+    const { open } = useBooking();
+
     return (
       <section
         className="position-relative text-white text-center d-flex align-items-center justify-content-center"
@@ -29,15 +35,13 @@ export default function DiscoverSection() {
             An exciting desert safari excursion in Dubai is exactly what you need for an unforgettable evening. Safari Desert AE in Dubai offers one of the top desert safari experiences, quickly becoming one of the most popular tourist activities in Dubai. With thrilling dune bashing, camel rides, and cultural shows, this desert safari in Dubai is a must-do for adventure lovers and those seeking unique experiences in the heart of the desert.
             </p>
             <div className="mt-5 text-center">
-                    <a
-                        href="#"
-                        className="btn btn-warning px-4"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Book Now
-                    </a>
-                </div>
+            <button 
+              onClick={() => open()} 
+              className="btn btn-warning px-4"
+            >
+              Book Now
+            </button>
+          </div>
           </div>
         </div>
       </section>

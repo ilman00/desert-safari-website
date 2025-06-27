@@ -35,7 +35,7 @@ export default function Hero() {
       >
         <h1 className="display-4 fw-bold">Unleash the Adventure – Experience the Best Desert Safari Dubai!</h1>
         <p className="lead">Embark on an unforgettable desert safari Dubai adventure with Safari Desert AE. Enjoy thrilling buggy and quad bike rides, serene camel trekking, breathtaking desert safari Dubai experiences, and live entertainment with belly dance and BBQ. Book now for the ultimate UAE desert safari Dubai experience!</p>
-        <a href="#packages" className="btn btn-warning btn-lg mt-3 text-light">
+        <a href="/packages" className="btn btn-warning btn-lg mt-3 text-light">
           View Packages
         </a>
       </div>

@@ -2,16 +2,20 @@
 
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import { useBooking } from "@/components/BookingContext"; 
 import "animate.css";
 import Image from "next/image";
 
-export default function PackageCard({ image, title, price, features, whatsappLink, bookLink }) {
+export default function PackageCard({ image, title, price, features, whatsappLink }) {
+  console.log("Rendering card with title:", title);
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   const [isVisible, setIsVisible] = useState(false);
+  const { open } = useBooking(); // ✅ use context hook
 
   useEffect(() => {
     if (inView) {
@@ -19,7 +23,14 @@ export default function PackageCard({ image, title, price, features, whatsappLin
     }
   }, [inView]);
 
-  const cardClasses = `card h-100 shadow-sm ${isVisible ? "animate__animated animate__fadeInLeft" : ""}`;
+  const handleBookNow = () => {
+    const safari = {
+      title,
+      price,
+    };
+    console.log("Opening modal with safari:", safari); // ✅ DEBUG
+    open(safari);
+  };
 
   return (
     <article
@@ -31,24 +42,21 @@ export default function PackageCard({ image, title, price, features, whatsappLin
         transition: "all 0.6s ease-out",
       }}
     >
-
       {/* Package Image */}
       <Image
-      src={image}
-      alt={`${title} in Dubai`}
-      width={400}
-      height={250}
-      className="card-img-top img-fluid"
-      style={{ objectFit: "cover" }}
-    />
-    
+        src={image}
+        alt={`${title} in Dubai`}
+        width={400}
+        height={250}
+        className="card-img-top img-fluid"
+        style={{ objectFit: "cover" }}
+      />
 
       {/* Package Details */}
       <div className="card-body">
         <h3 className="card-title h5 text-center">{title}</h3>
         <p className="text-center fw-bold text-success mb-3">{price}</p>
 
-        {/* Feature List */}
         <ul className="list-unstyled">
           {features.map((item, index) => (
             <li
@@ -56,17 +64,13 @@ export default function PackageCard({ image, title, price, features, whatsappLin
               style={{
                 fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
                 borderBottom: index !== features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
-                paddingTop: "1rem",
-                paddingBottom: "1rem",
-                paddingLeft: "1rem",
-                paddingRight: "1rem",
+                padding: "1rem",
               }}
             >
               {item}
             </li>
           ))}
         </ul>
-
       </div>
 
       {/* Action Buttons */}
@@ -79,17 +83,14 @@ export default function PackageCard({ image, title, price, features, whatsappLin
         >
           <i className="bi bi-whatsapp me-1"></i> WhatsApp
         </a>
-        <a
-          href={bookLink}
+
+        <button
+          onClick={handleBookNow}
           className="btn btn-warning w-50 d-flex align-items-center justify-content-center"
-          style={{
-            height: "48px",
-            fontWeight: "bold",
-            fontSize: "1rem",
-          }}
+          style={{ height: "48px", fontWeight: "bold", fontSize: "1rem" }}
         >
           Book Now
-        </a>
+        </button>
       </div>
     </article>
   );

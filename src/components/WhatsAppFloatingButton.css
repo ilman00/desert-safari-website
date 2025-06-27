@@ -119,3 +119,12 @@
     transition: opacity 0.4s ease, visibility 0.4s ease;
   }
   
+  .card.transition-opacity {
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .card.opacity-100 {
+    transform: translateY(0);
+  }
+  
