@@ -16,15 +16,13 @@ function toTitleCase(str) {
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
-  if (!show) return null;
-
-  // 🔁 Flatten all safari packages into one array
-  const allSafaris = packageData.flatMap((group) => group.cards);
-
-  // 🧠 Selected title when dropdown is enabled
   const [manualSelectedTitle, setManualSelectedTitle] = useState("");
 
-  // 📦 Determine currently selected package
+
+  if (!show) return null;
+
+  const allSafaris = packageData.flatMap((group) => group.cards);
+
   const currentSafari = selectedSafari
     ? selectedSafari
     : allSafaris.find((s) => s.title === manualSelectedTitle);
