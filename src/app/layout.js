@@ -8,6 +8,13 @@ import Footer from '@/components/Footer';
 import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton';
 import { BookingProvider } from "@/components/BookingContext";
 import BookingModal from "@/components/BookingModal";
+import { Playfair_Display, Lato } from 'next/font/google';
+
+const playfair = Playfair_Display({ subsets: ['latin'], weight: ['700'] });
+const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
+
+
+
 export const metadata = {
   title: 'Desert Safari Dubai | Best Safari Experience',
   description: 'Enjoy the best desert safari in Dubai with thrilling adventures and affordable packages.',
@@ -17,12 +24,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={lato.className}>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap"
-          rel="stylesheet"
-        />
+        
       </head>
       <BootstrapClient />
       <body style={{ fontSize: "20px" }}>

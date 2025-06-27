@@ -6,7 +6,7 @@ export default function GallaryHero({title, heroText}){
         {/* Background Video */}
         <Image src="/images/gallary-background-img.jpg" width={800} height={600}
           className="w-100 position-absolute top-0 start-0 h-100 object-fit-cover"
-          style={{ zIndex: -2 }}
+          style={{ zIndex: -2 }} alt="Background Image"
         />
   
         {/* Fullscreen Blur Overlay */}

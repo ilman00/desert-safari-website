@@ -1,6 +1,8 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
+
 import { useBooking } from "@/components/BookingContext";
 
 export default function SecondNavbar() {
@@ -10,7 +12,7 @@ export default function SecondNavbar() {
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm px-0">
       <div className="container-fluid px-0">
         <Link href="/" className="navbar-brand fw-bold ms-3">
-          <img src="/images/safari-desert.png" alt="Safari Desert" height="40" />
+          <Image src="/images/safari-desert.png" width={120} height={40} alt="Safari Desert" />
         </Link>
 
         <button

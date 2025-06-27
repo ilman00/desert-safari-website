@@ -19,7 +19,6 @@ export default function BookingModal() {
   const [manualSelectedTitle, setManualSelectedTitle] = useState("");
 
 
-  if (!show) return null;
 
   const allSafaris = packageData.flatMap((group) => group.cards);
 
@@ -36,6 +35,7 @@ export default function BookingModal() {
     alert("Booking submitted!");
     close();
   };
+  if (!show) return null;
 
   return (
     <>
@@ -91,7 +91,7 @@ export default function BookingModal() {
                       <option value="" disabled>Select a package</option>
                       {allSafaris.map((safari) => (
                         <option key={safari.title} value={safari.title}>
-                        {toTitleCase(safari.title)}
+                          {toTitleCase(safari.title)}
                         </option>
                       ))}
                     </select>
