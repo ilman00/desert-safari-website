@@ -26,18 +26,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={lato.className}>
       <head>
-        
+
       </head>
       <BootstrapClient />
-      <body style={{ fontSize: "20px" }}>
-        <BookingProvider>
-          <TopNavbar />
-          <SecondNavbar />
-          {children}
-          <Footer />
-          <BookingModal />
-          <WhatsAppFloatingButton />
-        </BookingProvider>
+      <body>
+        <div style={{ fontSize: "20px" }}>
+          <BookingProvider>
+            <TopNavbar />
+            <SecondNavbar />
+            {children}
+            <Footer />
+            <BookingModal />
+            <WhatsAppFloatingButton />
+          </BookingProvider>
+        </div>
+
       </body>
     </html>
   );

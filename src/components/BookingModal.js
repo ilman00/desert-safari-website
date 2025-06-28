@@ -3,6 +3,7 @@
 import { useBooking } from "./BookingContext";
 import { useEffect, useState } from "react";
 import { packageData } from "@/data/packages";
+import CheckoutButton from "./CheckoutButton";
 
 function toTitleCase(str) {
   return str
@@ -11,6 +12,7 @@ function toTitleCase(str) {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
 
 
 
@@ -30,11 +32,37 @@ export default function BookingModal() {
     if (!selectedSafari) setManualSelectedTitle("");
   }, [selectedSafari]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Booking submitted!");
-    close();
+    const formData = new FormData(e.target);
+
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      pickupLocation: formData.get("pickupLocation"),
+      package: selectedSafari?.title || manualSelectedTitle,
+      price: currentSafari?.price || "",
+      adults: Number(formData.get("adults")),
+      kids: Number(formData.get("kids")),
+      message: formData.get("message") || "",
+    };
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to book");
+
+      close();
+    } catch (err) {
+      alert("Failed to submit booking.");
+      console.error(err);
+    }
   };
+
   if (!show) return null;
 
   return (
@@ -146,11 +174,14 @@ export default function BookingModal() {
                   </div>
 
                   {/* Submit */}
+                  {/* Submit */}
                   <div className="col-12">
-                    <button type="submit" className="btn btn-success w-100">
-                      Book Now
-                    </button>
+                    <CheckoutButton
+                      tourName={currentSafari?.title || "Your Safari"}
+                      price={currentSafari?.price || 0}
+                    />
                   </div>
+
                 </div>
               </form>
             </div>
