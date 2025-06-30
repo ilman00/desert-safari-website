@@ -6,11 +6,15 @@ export async function POST(req) {
     try {
         const { tourName, price } = await req.json();
         const origin = req.headers.get("origin");
+
         // Extract digits from string like "89 AED | Per Person"
         const numericPrice = parseInt(String(price).match(/\d+/)?.[0]);
 
         if (!tourName || isNaN(numericPrice)) {
-            return new Response(JSON.stringify({ error: "Invalid tourName or price" }), { status: 400 });
+            return new Response(
+                JSON.stringify({ error: "Invalid tourName or price" }),
+                { status: 400 }
+            );
         }
 
         const session = await stripe.checkout.sessions.create({
@@ -23,7 +27,7 @@ export async function POST(req) {
                         product_data: {
                             name: tourName,
                         },
-                        unit_amount: numericPrice * 100,
+                        unit_amount: numericPrice * 100, // Convert to smallest currency unit
                     },
                     quantity: 1,
                 },
@@ -31,11 +35,16 @@ export async function POST(req) {
             success_url: `${origin}/success`,
             cancel_url: `${origin}/cancel`,
         });
-
+        console.log("Created session:", session.id);
+        console.log("View at: https://dashboard.stripe.com/test/checkout/sessions/" + session.id);
+        
         return Response.json({ id: session.id });
 
     } catch (error) {
-        console.error("Stripe error:", error); // ✅ this will show you what went wrong
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+        console.error("Stripe error:", error);
+        return new Response(
+            JSON.stringify({ error: error.message }),
+            { status: 500 }
+        );
     }
 }
