@@ -96,7 +96,7 @@ export const packageData = [
           bookLink: "/book",
         },
         {
-          image: "/images/morning-pic-3.png",
+          image: "/images/morning-pic-3.webp",
           title: "VIP Morning Safari",
           price: "149 AED | Per Person",
           features: features,
