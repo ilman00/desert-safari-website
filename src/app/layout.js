@@ -2,7 +2,6 @@
 import TopNavbar from '@/components/Topnavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'react-phone-input-2/lib/bootstrap.css';
 import BootstrapClient from "../components/BootstrapClient";
 import SecondNavbar from '@/components/SecondNavbar';
 import Footer from '@/components/Footer';

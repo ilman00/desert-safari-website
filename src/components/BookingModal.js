@@ -4,7 +4,8 @@
 import { useBooking } from "./BookingContext";
 import { useState } from "react";
 import { packageData } from "@/data/packages";
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput from './PhoneInputWrapper';
+
 
 function toTitleCase(str) {
   return str
@@ -133,8 +134,8 @@ export default function BookingModal() {
                       required
                     >
                       <option value="" disabled>Select a package</option>
-                      {allSafaris.map((safari) => (
-                        <option key={safari.title} value={safari.title}>
+                      {allSafaris.map((safari, index) => (
+                        <option key={index} value={safari.title}>
                           {toTitleCase(safari.title)}
                         </option>
                       ))}
