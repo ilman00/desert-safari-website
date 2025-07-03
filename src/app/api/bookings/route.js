@@ -19,8 +19,8 @@ export async function POST(req) {
       message: body.message,
     });
 
-    await booking.save();
-    return new Response(JSON.stringify({ success: true }), { status: 201 });
+    const bookedPackage =  await booking.save();
+    return new Response(JSON.stringify({ success: true , id: bookedPackage._id}), { status: 201 });
   } catch (error) {
     console.error("Booking API error:", error);
     return new Response(JSON.stringify({ success: false, error: "Server error" }), { status: 500 });

@@ -1,26 +1,25 @@
+// 📁 app/components/BookingModal.jsx
 "use client";
 
 import { useBooking } from "./BookingContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { packageData } from "@/data/packages";
-import CheckoutButton from "./CheckoutButton";
+import PhoneInput from 'react-phone-input-2';
 
 function toTitleCase(str) {
   return str
     .toLowerCase()
     .split(" ")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
-
-
-
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
   const [manualSelectedTitle, setManualSelectedTitle] = useState("");
-
-
+  const [loading, setLoading] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState(null);
+  const [phone, setPhone] = useState('');
 
   const allSafaris = packageData.flatMap((group) => group.cards);
 
@@ -28,18 +27,15 @@ export default function BookingModal() {
     ? selectedSafari
     : allSafaris.find((s) => s.title === manualSelectedTitle);
 
-  useEffect(() => {
-    if (!selectedSafari) setManualSelectedTitle("");
-  }, [selectedSafari]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    setLoading(true);
 
+    const formData = new FormData(e.target);
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
-      phone: formData.get("phone"),
+      phone,
       pickupLocation: formData.get("pickupLocation"),
       package: selectedSafari?.title || manualSelectedTitle,
       price: currentSafari?.price || "",
@@ -49,17 +45,34 @@ export default function BookingModal() {
     };
 
     try {
-      const res = await fetch("/api/bookings", {
+      const bookingRes = await fetch("/api/bookings", {
         method: "POST",
         body: JSON.stringify(data),
       });
+      const result = await bookingRes.json();
+      if (!bookingRes.ok || !result.id) throw new Error("Booking failed");
 
-      if (!res.ok) throw new Error("Failed to book");
+      if (selectedPayment === "online") {
+        const checkoutRes = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...data, bookingId: result.id }),
+        });
 
-      close();
+        const { url } = await checkoutRes.json();
+        if (!url) throw new Error("Checkout failed");
+
+        window.location.href = url;
+      } else {
+        alert("Booking confirmed! Please pay in cash at pickup.");
+        close();
+      }
     } catch (err) {
-      alert("Failed to submit booking.");
+      alert("Booking failed.");
       console.error(err);
+    } finally {
+      setLoading(false);
+      setSelectedPayment(null);
     }
   };
 
@@ -84,34 +97,37 @@ export default function BookingModal() {
                     <label className="form-label">Name</label>
                     <input type="text" className="form-control" name="name" required />
                   </div>
-
                   {/* Email */}
                   <div className="col-md-6">
                     <label className="form-label">Email</label>
                     <input type="email" className="form-control" name="email" required />
                   </div>
-
                   {/* Phone */}
                   <div className="col-md-6">
                     <label className="form-label">Phone Number</label>
-                    <input type="tel" className="form-control" name="phone" required />
+                    <PhoneInput
+                      country={'ae'} // default to UAE
+                      value={phone}
+                      onChange={setPhone}
+                      inputProps={{
+                        name: 'phone',
+                        required: true,
+                        className: 'form-control'
+                      }}
+                    />
                   </div>
-
                   {/* Pickup Location */}
                   <div className="col-md-6">
                     <label className="form-label">Pickup Location</label>
                     <input type="text" className="form-control" name="pickupLocation" required />
                   </div>
-
                   {/* Package Select */}
                   <div className="col-md-6">
                     <label className="form-label">Safari Package</label>
                     <select
                       name="package"
                       className="form-select"
-                      value={
-                        selectedSafari?.title || manualSelectedTitle || ""
-                      }
+                      value={selectedSafari?.title || manualSelectedTitle || ""}
                       disabled={!!selectedSafari}
                       onChange={(e) => setManualSelectedTitle(e.target.value)}
                       required
@@ -124,7 +140,6 @@ export default function BookingModal() {
                       ))}
                     </select>
                   </div>
-
                   {/* Price */}
                   {currentSafari?.price && (
                     <div className="col-md-6">
@@ -137,49 +152,53 @@ export default function BookingModal() {
                       />
                     </div>
                   )}
-
                   {/* Adults */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Adults</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="adults"
-                      min="1"
-                      required
-                    />
+                    <input type="number" className="form-control" name="adults" min="1" required />
                   </div>
-
                   {/* Kids */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Kids</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="kids"
-                      min="0"
-                      required
-                    />
+                    <input type="number" className="form-control" name="kids" min="0" required />
                   </div>
-
                   {/* Message */}
                   <div className="col-12">
                     <label className="form-label">Message</label>
-                    <textarea
-                      className="form-control"
-                      name="message"
-                      rows="3"
-                      placeholder="Optional message"
-                    ></textarea>
+                    <textarea className="form-control" name="message" rows="3" placeholder="Optional message"></textarea>
                   </div>
 
-                  {/* Submit */}
-                  {/* Submit */}
-                  <div className="col-12">
-                    <CheckoutButton
-                      tourName={currentSafari?.title || "Your Safari"}
-                      price={currentSafari?.price || 0}
-                    />
+                  <div className="col-12 d-flex gap-3">
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 d-flex justify-content-center align-items-center"
+                      disabled={loading}
+                      onClick={() => setSelectedPayment("online")}
+                    >
+                      {loading && selectedPayment === "online" ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Processing...
+                        </>
+                      ) : (
+                        "Pay Online"
+                      )}
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-secondary w-100 d-flex justify-content-center align-items-center"
+                      disabled={loading}
+                      onClick={() => setSelectedPayment("offline")}
+                    >
+                      {loading && selectedPayment === "offline" ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Processing...
+                        </>
+                      ) : (
+                        "Pay Offline (Cash)"
+                      )}
+                    </button>
                   </div>
 
                 </div>
@@ -188,8 +207,6 @@ export default function BookingModal() {
           </div>
         </div>
       </div>
-
-      {/* Backdrop */}
       <div className="modal-backdrop fade show"></div>
     </>
   );

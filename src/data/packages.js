@@ -49,7 +49,7 @@ export const packageData = [
       title: "Evening Desert Safari Dubai Deals",
       cards: [
         {
-          image: "/images/Liwa-Oasis-A-Desert-Escape-by-tripscpae-tourism-1-3.png",
+          image: "/images/basic-evening-safari.jpg",
           title: "Basic Evening Safari",
           price: "89 AED | Per Person",
           features:features, // same icon + text array as before

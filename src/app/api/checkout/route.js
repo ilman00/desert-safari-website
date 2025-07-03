@@ -4,7 +4,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req) {
     try {
-        const { tourName, price } = await req.json();
+        const { tourName, price, bookingId } = await req.json();
+
         const origin = req.headers.get("origin");
 
         // Extract digits from string like "89 AED | Per Person"
@@ -34,11 +35,15 @@ export async function POST(req) {
             ],
             success_url: `${origin}/success`,
             cancel_url: `${origin}/cancel`,
+            metadata: {
+                bookingId, 
+            },
         });
         console.log("Created session:", session.id);
         console.log("View at: https://dashboard.stripe.com/test/checkout/sessions/" + session.id);
-        
-        return Response.json({ id: session.id });
+
+        return Response.json({ url: session.url });
+
 
     } catch (error) {
         console.error("Stripe error:", error);

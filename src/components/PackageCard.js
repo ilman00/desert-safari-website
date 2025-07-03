@@ -2,7 +2,7 @@
 
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
-import { useBooking } from "@/components/BookingContext"; 
+import { useBooking } from "@/components/BookingContext";
 import "animate.css";
 import Image from "next/image";
 
@@ -43,14 +43,17 @@ export default function PackageCard({ image, title, price, features, whatsappLin
       }}
     >
       {/* Package Image */}
-      <Image
-        src={image}
-        alt={`${title} in Dubai`}
-        width={400}
-        height={250}
-        className="card-img-top img-fluid"
-        style={{ objectFit: "cover" }}
-      />
+      <div style={{ width: "100%", height: "300px", position: "relative" }}>
+        <Image
+          src={image}
+          alt={`${title} in Dubai`}
+          fill
+          style={{ objectFit: "cover" }}
+          className="card-img-top"
+          sizes="(max-width: 768px) 100vw, 400px"
+        />
+      </div>
+
 
       {/* Package Details */}
       <div className="card-body">

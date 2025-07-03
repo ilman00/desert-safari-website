@@ -12,6 +12,11 @@ const BookingSchema = new mongoose.Schema(
     adults: Number,
     kids: Number,
     message: String,
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid"],
+      default: "pending",
+    },
   },
   { timestamps: true }
 );

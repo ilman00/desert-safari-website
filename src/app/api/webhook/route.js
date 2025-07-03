@@ -2,6 +2,9 @@ import Stripe from 'stripe';
 
 import nodemailer from 'nodemailer';
 import { Twilio } from 'twilio';
+import Booking from '@/models/Booking';
+
+
 
 const twilioClient = new Twilio(
   process.env.TWILIO_ACCOUNT_SID,
@@ -61,6 +64,8 @@ async function bufferFromWebReadableStream(stream) {
 
 export async function POST(req) {
   try {
+    await connectDB();
+
     const rawBody = await bufferFromWebReadableStream(req.body);
     const sig = req.headers.get('stripe-signature');
 
@@ -83,6 +88,12 @@ export async function POST(req) {
 
       const tourName = lineItems.data[0]?.description || "Unknown Package";
       console.log('🎉 Success! Customer:', customerEmail);
+
+      const bookingId = session.metadata?.bookingId;
+
+      if (bookingId) {
+        await Booking.findByIdAndUpdate(bookingId, { paymentStatus: 'paid' });
+      }
 
       // Send notifications
       await sendWhatsAppNotification(customerEmail, tourName, amountTotal);
