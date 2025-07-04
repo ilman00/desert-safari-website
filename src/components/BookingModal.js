@@ -65,7 +65,11 @@ export default function BookingModal() {
         const checkoutRes = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...data, bookingId: result.id }),
+          body: JSON.stringify({
+            tourName: data.package,  // ✅ Fix here
+            price: data.price,
+            bookingId: result.id,
+          }),
         });
 
         const { url } = await checkoutRes.json();
@@ -186,10 +190,14 @@ export default function BookingModal() {
                   </div>
 
                   {/* Payment Buttons */}
+                  <div className="alert alert-success text-center py-2" role="alert">
+                    💳 Enjoy 5% OFF when you pay online — secure your spot now!
+                  </div>
+
                   <div className="col-12 d-flex gap-3">
                     <button
                       type="submit"
-                      className="btn btn-primary w-100 d-flex justify-content-center align-items-center"
+                      className="btn btn-warning w-100 d-flex justify-content-center align-items-center"
                       disabled={loading}
                       onClick={() => setSelectedPayment("online")}
                     >
@@ -205,7 +213,7 @@ export default function BookingModal() {
 
                     <button
                       type="submit"
-                      className="btn btn-secondary w-100 d-flex justify-content-center align-items-center"
+                      className="btn btn-light border w-100 d-flex justify-content-center align-items-center"
                       disabled={loading}
                       onClick={() => setSelectedPayment("offline")}
                     >

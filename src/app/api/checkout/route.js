@@ -8,7 +8,9 @@ export async function POST(req) {
 
         const origin = req.headers.get("origin");
 
-        // Extract digits from string like "89 AED | Per Person"
+        const discountRate = 0.05;
+
+        // Extract numeric price
         const numericPrice = parseInt(String(price).match(/\d+/)?.[0]);
 
         if (!tourName || isNaN(numericPrice)) {
@@ -18,6 +20,9 @@ export async function POST(req) {
             );
         }
 
+        // Calculate discounted price
+        const discountedPrice = Math.round(numericPrice * (1 - discountRate) * 100); // in fils (100 = 1 AED)
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
@@ -26,9 +31,9 @@ export async function POST(req) {
                     price_data: {
                         currency: 'aed',
                         product_data: {
-                            name: tourName,
+                            name: `${tourName} (5% Online Discount)`, // show it in stripe invoice
                         },
-                        unit_amount: numericPrice * 100, // Convert to smallest currency unit
+                        unit_amount: discountedPrice, // already in smallest unit
                     },
                     quantity: 1,
                 },
@@ -36,9 +41,12 @@ export async function POST(req) {
             success_url: `${origin}/success`,
             cancel_url: `${origin}/cancel`,
             metadata: {
-                bookingId, 
+                bookingId,
+                originalPrice: `${numericPrice} AED`,
+                discountApplied: "5%",
             },
         });
+
         console.log("Created session:", session.id);
         console.log("View at: https://dashboard.stripe.com/test/checkout/sessions/" + session.id);
 
