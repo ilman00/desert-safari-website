@@ -3,17 +3,29 @@
 
 import { useBooking } from "./BookingContext";
 import { useState } from "react";
-import { packageData } from "@/data/packages";
 import PhoneInput from './PhoneInputWrapper';
 
-
-function toTitleCase(str) {
-  return str
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
+const combinedSafaris = [
+  { title: "Evening Desert Safari", price: "89 AED | Per Person" },
+  { title: "Safari With Quad Bikes", price: "199 AED | Per Person" },
+  { title: "VIP Evening Safari", price: "149 AED | Per Person" },
+  { title: "Morning Desert Safari", price: "119 AED | Per Person" },
+  { title: "Morning Desert Safari With Quad Bike", price: "249 AED | Per Person" },
+  { title: "Private Morning Desert Safari", price: "1149 AED | Per Person" },
+  { title: "PRIVATE DESERT SAFARI WITH SAHARA FORTNESS DINNER", price: "2049 AED | Per Group" },
+  { title: "PRIVATE DESERT SAFARI AT BAB AL SHAMS RESORT", price: "2450 AED | Per Group" },
+  { title: "DESERT SAFARI SHOW WITH FALCONRY WITH DINNER", price: "1999 AED | Per Person" },
+  { title: "PRIVATE DESERT SAFARI WITH SAHARA FORTNESS DINNER", price: "699 AED | Per Group" },
+  { title: "PRIVATE DESERT SAFARI AT BAB AL SHAMS RESORT", price: "1049 AED | Per Group" },
+  { title: "DESERT SAFARI SHOW WITH FALCONRY WITH DINNER", price: "1399 AED | Per Person" },
+  { title: "Hot Air Balloon Ride", price: "AED 1050 | PER PERSON" },
+  { title: "Dubai City Tour", price: "AED 125 | PER PERSON" },
+  { title: "Abu Dhabi City Tour", price: "AED 150 | PER PERSONs" },
+  { title: "Museum Of Future", price: "140 AED | PER PERSON" },
+  { title: "Ferrari World Abu Dhabi", price: "265 AED | PER PERSON" },
+  { title: "IMG Worlds Of Adventure", price: "195 AED | PER PERSON" },
+  { title: "Burj Khalifa Tour", price: "AED 180 | PER PERSON" },
+];
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
@@ -22,11 +34,7 @@ export default function BookingModal() {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [phone, setPhone] = useState('');
 
-  const allSafaris = packageData.flatMap((group) => group.cards);
-
-  const currentSafari = selectedSafari
-    ? selectedSafari
-    : allSafaris.find((s) => s.title === manualSelectedTitle);
+  const currentSafari = selectedSafari || combinedSafaris.find((s) => s.title === manualSelectedTitle);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,16 +106,18 @@ export default function BookingModal() {
                     <label className="form-label">Name</label>
                     <input type="text" className="form-control" name="name" required />
                   </div>
+
                   {/* Email */}
                   <div className="col-md-6">
                     <label className="form-label">Email</label>
                     <input type="email" className="form-control" name="email" required />
                   </div>
+
                   {/* Phone */}
                   <div className="col-md-6">
                     <label className="form-label">Phone Number</label>
                     <PhoneInput
-                      country={'ae'} // default to UAE
+                      country={'ae'}
                       value={phone}
                       onChange={setPhone}
                       inputProps={{
@@ -117,12 +127,14 @@ export default function BookingModal() {
                       }}
                     />
                   </div>
+
                   {/* Pickup Location */}
                   <div className="col-md-6">
                     <label className="form-label">Pickup Location</label>
                     <input type="text" className="form-control" name="pickupLocation" required />
                   </div>
-                  {/* Package Select */}
+
+                  {/* Package Selection */}
                   <div className="col-md-6">
                     <label className="form-label">Safari Package</label>
                     <select
@@ -134,14 +146,15 @@ export default function BookingModal() {
                       required
                     >
                       <option value="" disabled>Select a package</option>
-                      {allSafaris.map((safari, index) => (
+                      {combinedSafaris.map((safari, index) => (
                         <option key={index} value={safari.title}>
-                          {toTitleCase(safari.title)}
+                          {safari.title}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* Price */}
+
+                  {/* Price Display */}
                   {currentSafari?.price && (
                     <div className="col-md-6">
                       <label className="form-label">Price</label>
@@ -153,22 +166,26 @@ export default function BookingModal() {
                       />
                     </div>
                   )}
+
                   {/* Adults */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Adults</label>
                     <input type="number" className="form-control" name="adults" min="1" required />
                   </div>
+
                   {/* Kids */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Kids</label>
                     <input type="number" className="form-control" name="kids" min="0" required />
                   </div>
+
                   {/* Message */}
                   <div className="col-12">
                     <label className="form-label">Message</label>
                     <textarea className="form-control" name="message" rows="3" placeholder="Optional message"></textarea>
                   </div>
 
+                  {/* Payment Buttons */}
                   <div className="col-12 d-flex gap-3">
                     <button
                       type="submit"
@@ -185,6 +202,7 @@ export default function BookingModal() {
                         "Pay Online"
                       )}
                     </button>
+
                     <button
                       type="submit"
                       className="btn btn-secondary w-100 d-flex justify-content-center align-items-center"
@@ -201,13 +219,13 @@ export default function BookingModal() {
                       )}
                     </button>
                   </div>
-
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
       <div className="modal-backdrop fade show"></div>
     </>
   );
