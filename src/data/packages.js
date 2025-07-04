@@ -5,7 +5,6 @@ const features = [
   '🚗 30–40 mins Dune Bashing',
   '🏄 Sand Boarding',
   '📸 Picture Point in Desert',
-  '🐪 Camel Ride',
   '☕ Arabic Coffee & Fresh Dates',
   '💨 Hubbly Bubblee (Sheesha)',
   '👗 Traditional Costumes',
@@ -50,7 +49,7 @@ export const packageData = [
       cards: [
         {
           image: "/images/basic-evening-safari.jpg",
-          title: "Basic Evening Safari",
+          title: "Evening Desert Safari",
           price: "89 AED | Per Person",
           features:features, // same icon + text array as before
           whatsappLink: "https://wa.me/971501234567",
@@ -66,9 +65,9 @@ export const packageData = [
         },
         {
           image: "/images/Gallery-Image-1-1-1.png",
-          title: "Basic Evening Safari",
+          title: "VIP Evening Safari",
           price: "149 AED | Per Person",
-          features:[...features, "💎 VIP Table Service", "❄️ AC Seating Area", "🍽️ Unlimited Buffet"], // same icon + text array as before
+          features:[...features, "💎 VIP Setting Area", "🍽️ Unlimited Buffet"], // same icon + text array as before
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
@@ -81,25 +80,25 @@ export const packageData = [
       cards: [
         {
           image: "/images/Morning-pic-1.png",
-          title: "Basic Morning Safari",
+          title: "Morning Desert Safari",
           price: "119 AED | Per Person",
-          features: ["Pickup from your location", "🏨 Pick and drop from hotel/home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💎 Private Desert Safari", "💺 VIP seating with sunset views", "🍖 Luxury BBQ dinner under the stars", "📸 Professional photography services"],
+          features: ["🚙 Pickup from your location", "🏨 Pick and drop from hotel/home", "📸 Photo opportunity on high dunes","🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "📸 Professional photography services"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/morning-pic-2.png",
-          title: "Morning Safari With Quad Bike",
+          title: "Morning Desert Safari With Quad Bike",
           price: "249 AED | Per Person",
-          features: ["Pickup from your location", "🏨 Pick and drop from hotel and home", "📸 Photo opportunity on high dunes", "🐪 Camel Ride", "🚴‍♂️ Quad Bike (30 Minutes)", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💨 Hubbly Bubblee (Sheesha)", "🍽️ BBQ Dinner (Veg & Non-Veg Options)", "💺 VIP seating with sunset views", "🌸 Henna Painting", "🎭 Traditional Tanura Show"],
+          features: ["🚙 Pickup from your location", "Picup Time: 8:00-8:30 am" ,"🏨 Pick and drop from hotel and home", "📸 Photo opportunity on high dunes", "🚴‍♂️ Quad Bike (30 Minutes)", "🏄 Sand Boarding", "🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "💨 Hubbly Bubblee (Sheesha)", "🍽️ BBQ Dinner (Veg & Non-Veg Options)", "💺 VIP seating with sunset views", "🌸 Henna Painting", "🎭 Traditional Tanura Show", ],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
         {
           image: "/images/morning-pic-3.webp",
-          title: "VIP Morning Safari",
-          price: "149 AED | Per Person",
-          features: features,
+          title: "Private Morning Desert Safari",
+          price: "1149 AED | Per Person",
+          features: ["🚙 Pickup from your location", "🏨 Pick and drop from hotel/home", "📸 Photo opportunity on high dunes","🏄 Sand Boarding", "🐪 Camel Ride", "🚴‍♂️ Quad Bike (Extra Payment) " ,"🏨 Drop back to hotel/residence", "🚗 Dune Bashing", "📸 Professional photography services"],
           whatsappLink: "https://wa.me/971501234567",
           bookLink: "/book",
         },
