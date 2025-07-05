@@ -7,7 +7,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Image from "next/image";
-
+import Link from "next/link";
 export default function Footer() {
   return (
     <footer
@@ -37,7 +37,7 @@ export default function Footer() {
             <div className="d-flex gap-3 mt-3">
               {[FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaLinkedinIn].map(
                 (Icon, idx) => (
-                  <a
+                  <Link
                     key={idx}
                     href="#"
                     className="text-light"
@@ -52,7 +52,7 @@ export default function Footer() {
                     }}
                   >
                     <Icon />
-                  </a>
+                  </Link>
                 )
               )}
             </div>
@@ -66,29 +66,29 @@ export default function Footer() {
                 <h5 className="mb-3 text-uppercase text-warning">Our Services</h5>
                 <ul className="list-unstyled">
                   <li className="mb-2">
-                    <a href="/#evening" className="text-light text-decoration-none">
+                    <Link href="/#evening" className="text-light text-decoration-none">
                       Evening Desert Safari
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/#Morning" className="text-light text-decoration-none">
+                    <Link href="/#Morning" className="text-light text-decoration-none">
                       Morning
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/#private" className="text-light text-decoration-none">
+                    <Link href="/#private" className="text-light text-decoration-none">
                       Private Desert Safari
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/#dune-buggy" className="text-light text-decoration-none">
+                    <Link href="/#dune-buggy" className="text-light text-decoration-none">
                       Safari Desert With Dune Buggy
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/#UAE-city-tours" className="text-light text-decoration-none">
+                    <Link href="/#UAE-city-tours" className="text-light text-decoration-none">
                       UAE City Tours
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -109,24 +109,24 @@ export default function Footer() {
                 <h5 className="mb-3 text-uppercase text-warning">Company</h5>
                 <ul className="list-unstyled">
                   <li className="mb-2">
-                    <a href="/about-us" className="text-light text-decoration-none">
+                    <Link href="/about-us" className="text-light text-decoration-none">
                       About Us
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <Link href="#" className="text-light text-decoration-none">
                       Article & News
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/contact-us" className="text-light text-decoration-none">
+                    <Link href="/contact-us" className="text-light text-decoration-none">
                       Contact Us
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2">
-                    <a href="/gallery" className="text-light text-decoration-none">
+                    <Link href="/gallery" className="text-light text-decoration-none">
                       Our Gallery
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
