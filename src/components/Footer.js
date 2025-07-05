@@ -133,7 +133,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
         <hr className="border-light mt-5" />
         <p className="text-center mb-0 pb-3">
           &copy; {new Date().getFullYear()} Safari Desert AE. All rights reserved.

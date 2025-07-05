@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       </head>
       <BootstrapClient />
       <body>
-        <div style={{ fontSize: "20px" }}>
+        <div >
           <BookingProvider>
             <TopNavbar />
             <SecondNavbar />

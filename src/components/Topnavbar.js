@@ -17,7 +17,7 @@ export default function TopNavbar() {
 
         {/* Right Side: Social Icons */}
         <div>
-          <a
+          <Link
             href="#"
             className="me-2 d-inline-flex align-items-center justify-content-center"
             style={{
@@ -31,9 +31,9 @@ export default function TopNavbar() {
             }}
           >
             <i className="bi bi-facebook"></i>
-          </a>
+          </Link>
 
-          <a href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
+          <Link href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
           style={{
             backgroundColor: '#4DAFA6', // lighter shade of #1B7D75
             color: '#fff',               // icon color
@@ -44,8 +44,8 @@ export default function TopNavbar() {
             fontSize: '18px'
           }}>
             <i className="bi bi-instagram"></i>
-          </a>
-          <a href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
+          </Link>
+          <Link href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
           style={{
             backgroundColor: '#4DAFA6', // lighter shade of #1B7D75
             color: '#fff',               // icon color
@@ -56,8 +56,8 @@ export default function TopNavbar() {
             fontSize: '18px'
           }}>
             <i className="bi bi-tiktok"></i>
-          </a>
-          <a href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
+          </Link>
+          <Link href="#" className="me-2 d-inline-flex align-items-center justify-content-center"
           style={{
             backgroundColor: '#4DAFA6', // lighter shade of #1B7D75
             color: '#fff',               // icon color
@@ -68,7 +68,7 @@ export default function TopNavbar() {
             fontSize: '18px'
           }}>
             <i className="bi bi-youtube"></i>
-          </a>
+          </Link>
 
         </div>
       </div>
