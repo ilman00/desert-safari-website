@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import nodemailer from 'nodemailer';
 import { Twilio } from 'twilio';
 import Booking from '@/models/Booking';
-import connectDB from '@/lib/dbConnect';
+import { dbConnect } from "@/lib/dbConnect";
 
 
 const twilioClient = new Twilio(

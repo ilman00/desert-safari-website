@@ -1,4 +1,6 @@
 // components/TopNavbar.js
+
+import Link from "next/link";
 export default function TopNavbar() {
   return (
     <div className="text-light py-3 " style={{ backgroundColor: "#005a5a" }}>
