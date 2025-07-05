@@ -8,7 +8,7 @@ export default function PackagesSection({ title, id, cards }) {
       className="py-5 bg-light"
       
     >
-      <div className="container-fluid">
+      <div className="container">
         <h2 className="text-center mb-5">{title}</h2>
         <div className="row">
           {cards.map((card, index) => (

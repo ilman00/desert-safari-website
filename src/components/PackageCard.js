@@ -67,7 +67,7 @@ export default function PackageCard({ image, title, price, features, whatsappLin
               style={{
                 fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
                 borderBottom: index !== features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
-                padding: "1rem",
+                padding: "0.7rem",
               }}
             >
               {item}

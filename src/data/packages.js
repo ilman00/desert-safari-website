@@ -76,7 +76,7 @@ export const packageData = [
     },
     {
       id: "Morning",
-      title: "Morning Desert Safari Tour Deals 2025",
+      title: "Morning Desert Safari Tour Deals",
       cards: [
         {
           image: "/images/Morning-pic-1.png",

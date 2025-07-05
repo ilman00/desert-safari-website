@@ -66,27 +66,27 @@ export default function Footer() {
                 <h5 className="mb-3 text-uppercase text-warning">Our Services</h5>
                 <ul className="list-unstyled">
                   <li className="mb-2">
-                    <a href="#evening" className="text-light text-decoration-none">
+                    <a href="/#evening" className="text-light text-decoration-none">
                       Evening Desert Safari
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#Morning" className="text-light text-decoration-none">
+                    <a href="/#Morning" className="text-light text-decoration-none">
                       Morning
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#private" className="text-light text-decoration-none">
+                    <a href="/#private" className="text-light text-decoration-none">
                       Private Desert Safari
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <a href="/#dune-buggy" className="text-light text-decoration-none">
                       Safari Desert With Dune Buggy
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <a href="/#UAE-city-tours" className="text-light text-decoration-none">
                       UAE City Tours
                     </a>
                   </li>
@@ -109,7 +109,7 @@ export default function Footer() {
                 <h5 className="mb-3 text-uppercase text-warning">Company</h5>
                 <ul className="list-unstyled">
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <a href="/about-us" className="text-light text-decoration-none">
                       About Us
                     </a>
                   </li>
@@ -119,12 +119,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <a href="/contact-us" className="text-light text-decoration-none">
                       Contact Us
                     </a>
                   </li>
                   <li className="mb-2">
-                    <a href="#" className="text-light text-decoration-none">
+                    <a href="/gallery" className="text-light text-decoration-none">
                       Our Gallery
                     </a>
                   </li>

@@ -1,4 +1,43 @@
+'use client';
+
 export default function ContactForm() {
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        const form = e.target;
+        const formData = {
+          name: form.name.value,
+          email: form.email.value,
+          subject: form.subject.value,
+          message: form.message.value,
+        };
+      
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+      
+          const result = await res.json();
+      
+          if (res.ok) {
+            alert("Message sent successfully!");
+            form.reset();
+          } else {
+            alert("Error: " + result.error);
+          }
+        } catch (err) {
+          alert("Something went wrong. Please try again later.");
+        }
+      };
+      
+
+
+
     return (
         <section className="container py-5">
             <div className="row pb-3">
@@ -34,25 +73,25 @@ export default function ContactForm() {
                 {/* Contact Form */}
                 <div className="col-lg-7 shadow pb-3">
                     <h3 className="fw-bold mb-4">Send Us a Message</h3>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>
-                            <input type="text" className="form-control" style={{backgroundColor: "#eee"}} id="name" placeholder="Your Name" required />
+                            <input type="text" className="form-control" style={{ backgroundColor: "#eee" }} id="name" placeholder="Your Name" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">Email</label>
-                            <input type="email" className="form-control" style={{backgroundColor: "#eee"}} id="email" placeholder="Your Email" required />
+                            <input type="email" className="form-control" style={{ backgroundColor: "#eee" }} id="email" placeholder="Your Email" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="subject" className="form-label">Subject</label>
-                            <input type="text" className="form-control" style={{backgroundColor: "#eee"}} id="subject" placeholder="Subject" />
+                            <input type="text" className="form-control" style={{ backgroundColor: "#eee" }} id="subject" placeholder="Subject" />
                         </div>
 
                         <div className="mb-4">
                             <label htmlFor="message" className="form-label">Message</label>
-                            <textarea className="form-control" style={{backgroundColor: "#eee"}} id="message" rows="5" placeholder="Your Message" required></textarea>
+                            <textarea className="form-control" style={{ backgroundColor: "#eee" }} id="message" rows="5" placeholder="Your Message" required></textarea>
                         </div>
 
                         <button type="submit" className="btn btn-warning px-5">Send Message</button>

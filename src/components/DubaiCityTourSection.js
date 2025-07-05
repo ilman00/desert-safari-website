@@ -1,18 +1,21 @@
 import DubaiCityTourCard from "./DubaiCityTourCard"; // Make sure this path matches your file structure
 import Image from "next/image";
+import PackageOptionsCard from "./PackageOptionsCard";
+
+
 export default function CardsSection() {
   const cardsData = [
-    { 
-      id: "hot-air-ballon",
-      title: "Hot Air Balloon Ride",
-      image: "/images/hot-air-balloon-tour.webp",
-      price: "AED 1050 | PER PERSON",
-      description:
-        "Experience the magic of Dubai from the sky with our Hot Air Balloon Ride. Witness a breathtaking sunrise over the desert and enjoy panoramic views that will leave you speechless.",
-      buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
-    },
-    
+    // { 
+    //   id: "hot-air-ballon",
+    //   title: "Hot Air Balloon Ride",
+    //   image: "/images/hot-air-balloon-tour.webp",
+    //   price: "AED 1050 | PER PERSON",
+    //   description:
+    //     "Experience the magic of Dubai from the sky with our Hot Air Balloon Ride. Witness a breathtaking sunrise over the desert and enjoy panoramic views that will leave you speechless.",
+    //   buttonText: "Book Now",
+    //   buttonLink: "https://wa.me/971500000000",
+    // },
+
 
     {
       id: "bubai-city-tour",
@@ -45,7 +48,7 @@ export default function CardsSection() {
         "A city tour will show you Abu Dhabi’s changes, but a desert safari Dubai experience will reveal the true essence of Arabian culture. This UAE city tour blends old and modern traditions, life, and people. On the city trip, we’ll visit Sheik Zayed and explore the breathtaking desert landscapes, offering a unique blend of adventure and culture in Dubai’s heart.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
-    }, 
+    },
     {
       id: "ferrari-world-abu-dhabi",
       title: "Ferrari World Abu Dhabi",
@@ -76,12 +79,12 @@ export default function CardsSection() {
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     }
-    
+
 
   ];
 
   return (
-    <section className="container-fluid py-5" style={{ backgroundColor: "#eeeeee" }}>
+    <section className="container-fluid py-5" style={{ backgroundColor: "#eeeeee" }} id="UAE-city-tours">
       <div className="row">
         {/* Left Text/Image Column */}
         <div className="col-12 col-lg-3 mb-4">
@@ -103,6 +106,18 @@ export default function CardsSection() {
         {/* Cards Grid */}
         <div className="col-12 col-lg-9">
           <div className="row g-4">
+            <div id="hot-air-balloon" className="col-12 col-md-6">
+              <PackageOptionsCard
+                id="hot-air-balloon"
+                title="Hot Air Balloon Ride"
+                image="/images/hot-air-balloon-tour.webp"
+                description="Soar above the golden dunes with our Hot Air Balloon Ride. Take off at sunrise for a peaceful flight over the vast desert landscape, witnessing breathtaking views and serene silence you’ll never forget."
+                options={[
+                  { label: "Without Breakfast", price: "AED 950 | PER PERSON" },
+                  { label: "With Breakfast", price: "AED 1050 | PER PERSON" },
+                ]}
+              />
+            </div>
             {cardsData.map((card, index) => (
               <div key={index} className="col-12 col-md-6">
                 <DubaiCityTourCard {...card} />

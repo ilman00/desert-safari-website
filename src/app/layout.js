@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           <BookingProvider>
             <TopNavbar />
             <SecondNavbar />
-            {children}
+              {children}
             <Footer />
             <BookingModal />
             <WhatsAppFloatingButton />
