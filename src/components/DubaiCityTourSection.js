@@ -23,7 +23,7 @@ export default function CardsSection() {
       image: "/images/dubai-city-tours-2.webp",
       price: "AED 125 | PER PERSON",
       description:
-        "Let us guide you on a Desert Safari Dubai City Tour. Dubai, known for its glitz and glamour, offers unforgettable Desert Safari experiences along with a fascinating history you won’t believe.",
+        "Discover the best of Dubai with our immersive City Tour. From iconic landmarks like the Burj Khalifa and Palm Jumeirah to the vibrant souks and historic Al Fahidi district, experience the perfect blend of modern marvels and rich cultural heritage. Ideal for first-time visitors and explorers alike!",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     },
@@ -34,7 +34,7 @@ export default function CardsSection() {
       image: "/images/abu-dhabi-city-tours.webp",
       price: "AED 150 | PER PERSONs",
       description:
-        "A city tour will show you Abu Dhabi’s changes, but a desert safari Dubai experience will reveal the true essence of Arabian culture. This UAE city tour blends old and modern traditions, life, and people. On the city trip, we’ll visit Sheik Zayed and explore the breathtaking desert landscapes, offering a unique blend of adventure and culture in Dubai’s heart.",
+        "A city tour through Abu Dhabi unveils the perfect blend of tradition and modernity, showcasing the heart of the UAE’s capital. From the architectural marvel of Sheikh Zayed Grand Mosque to the elegant Corniche and cultural landmarks, this journey reflects the city’s transformation while honoring its deep-rooted heritage. Discover how Abu Dhabi gracefully balances its historical charm with futuristic ambition.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     },
@@ -45,7 +45,7 @@ export default function CardsSection() {
       image: "/images/museum-of-future.webp",
       price: "140 AED | PER PERSON",
       description:
-        "A city tour will show you Abu Dhabi’s changes, but a desert safari Dubai experience will reveal the true essence of Arabian culture. This UAE city tour blends old and modern traditions, life, and people. On the city trip, we’ll visit Sheik Zayed and explore the breathtaking desert landscapes, offering a unique blend of adventure and culture in Dubai’s heart.",
+        "A city tour will show you Dubai’s remarkable transformation, but a visit to the Museum of the Future reveals the city's vision for what lies ahead. This iconic landmark embodies the UAE’s fusion of innovation, culture, and imagination. As part of the tour, we’ll explore this architectural marvel and discover exhibitions that blend science, technology, and heritage—offering a glimpse into the future from the heart of Dubai.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     },
@@ -55,7 +55,7 @@ export default function CardsSection() {
       image: "/images/ferrari-world-abu-dhabi.webp",
       price: "265 AED | PER PERSON",
       description:
-        "Ferrari World Abu Dhabi, located on Yas Island in Abu Dhabi, UAE, is the first Ferrari-branded theme park in the world and boasts the largest space frame structure ever created. This iconic park features the thrilling Formula Rossa, the world’s fastest roller coaster. Ferrari World Abu Dhabi offers an unforgettable experience for adrenaline seekers and Ferrari enthusiasts alike, making it a must-visit destination in the UAE.",
+        "Ferrari World Abu Dhabi, situated on Yas Island, is the world’s first Ferrari-branded theme park and home to the largest space frame structure ever built. This iconic destination features Formula Rossa — the fastest roller coaster on the planet — delivering an adrenaline rush like no other. Whether you're a thrill-seeker or a devoted Ferrari fan, Ferrari World promises an unforgettable experience and is a must-visit attraction in the UAE.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     },
@@ -65,7 +65,7 @@ export default function CardsSection() {
       image: "/images/img-world-of-adventure.webp",
       price: "195 AED | PER PERSON",
       description:
-        "IMG Worlds of Adventure is the world’s largest indoor theme and amusement park in Dubai, UAE. As Dubai's first mega themed entertainment destination, IMG Worlds of Adventure offers an exciting desert safari experience with six epic adventure zones in one location. Explore thrilling rides, attractions, and unique desert adventures that promise an unforgettable experience for visitors from around the world. Immerse yourself in the best indoor theme park experience in Dubai and create lasting memories with your loved ones at IMG Worlds of Adventure.",
+        "IMG Worlds of Adventure is the world’s largest indoor theme and amusement park, located in Dubai, UAE. As Dubai's first mega-themed entertainment destination, it features six immersive adventure zones packed with thrilling rides, beloved cartoon characters, and adrenaline-pumping attractions. From Marvel superheroes to dinosaur adventures, IMG Worlds offers unforgettable fun for families and thrill-seekers alike — all under one climate-controlled roof. Step into a world of excitement and create lasting memories at Dubai’s premier indoor theme park.",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     },
@@ -75,7 +75,7 @@ export default function CardsSection() {
       image: "/images/burj-khalifa-dubai-tour.jpeg",
       price: "AED 180 | PER PERSON",
       description:
-        "Take your journey to new heights with our Burj Khalifa Tour. Explore the world’s tallest building and enjoy stunning 360° views of Dubai from the iconic observation decks.",
+        "Step into the clouds with our Burj Khalifa Tour and enjoy breathtaking views from the world’s tallest building. Ride the high-speed elevator to the observation deck, capture unforgettable photos, and take in the panoramic skyline from the iconic 'At The Top' experience. A must-visit for every traveler!",
       buttonText: "Book Now",
       buttonLink: "https://wa.me/971500000000",
     }
