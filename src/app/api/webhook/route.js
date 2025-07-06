@@ -64,7 +64,7 @@ async function bufferFromWebReadableStream(stream) {
 
 export async function POST(req) {
   try {
-    await connectDB();
+    await dbConnect();
 
     const rawBody = await bufferFromWebReadableStream(req.body);
     const sig = req.headers.get('stripe-signature');
