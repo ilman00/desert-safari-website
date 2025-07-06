@@ -6,30 +6,24 @@ import { useBooking } from "@/components/BookingContext";
 import "animate.css";
 import Image from "next/image";
 
-export default function PackageCard({ image, title, price, features, whatsappLink }) {
-  console.log("Rendering card with title:", title);
-
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
+export default function PackageCard({ image, title, whatsappLink, bookLink, variants }) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [isVisible, setIsVisible] = useState(false);
-  const { open } = useBooking(); // ✅ use context hook
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const { open } = useBooking();
+
+  const selectedVariant = variants[selectedVariantIndex] || variants[0];
 
   useEffect(() => {
-    if (inView) {
-      setIsVisible(true);
-    }
+    if (inView) setIsVisible(true);
   }, [inView]);
 
   const handleBookNow = () => {
-    const safari = {
-      title,
-      price,
-    };
-    console.log("Opening modal with safari:", safari); // ✅ DEBUG
-    open(safari);
+    console.log(selectedVariant.name);
+    open({
+      title: selectedVariant.name,
+      price: selectedVariant.price,
+    });
   };
 
   return (
@@ -42,7 +36,7 @@ export default function PackageCard({ image, title, price, features, whatsappLin
         transition: "all 0.6s ease-out",
       }}
     >
-      {/* Package Image */}
+      {/* Image */}
       <div style={{ width: "100%", height: "300px", position: "relative" }}>
         <Image
           src={image}
@@ -54,19 +48,34 @@ export default function PackageCard({ image, title, price, features, whatsappLin
         />
       </div>
 
-
-      {/* Package Details */}
+      {/* Details */}
       <div className="card-body">
-        <h3 className="card-title h5 text-center">{title}</h3>
-        <p className="text-center fw-bold text-success mb-3">{price}</p>
+        <h3 className="card-title h5 text-center">{selectedVariant.name}</h3>
+
+        {/* Toggle Buttons */}
+        {variants.length > 1 && (
+          <div className="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+            {variants.map((variant, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedVariantIndex(index)}
+                className={`btn btn-sm ${index === selectedVariantIndex ? "btn-warning" : "btn-outline-warning"}`}
+              >
+                {variant.btnVal}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <p className="text-center fw-bold text-success mb-3">{selectedVariant.price}</p>
 
         <ul className="list-unstyled">
-          {features.map((item, index) => (
+          {selectedVariant.features.map((item, index) => (
             <li
               key={index}
               style={{
                 fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
-                borderBottom: index !== features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
+                borderBottom: index !== selectedVariant.features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
                 padding: "0.7rem",
               }}
             >
@@ -76,7 +85,7 @@ export default function PackageCard({ image, title, price, features, whatsappLin
         </ul>
       </div>
 
-      {/* Action Buttons */}
+      {/* Buttons */}
       <div className="card-footer d-flex align-items-center gap-2 px-3 pb-3 bg-white border-0">
         <a
           href={whatsappLink}

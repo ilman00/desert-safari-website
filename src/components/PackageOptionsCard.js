@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useBooking } from "@/components/BookingContext";
 
-export default function HotAirBalloonCard({
+export default function PackageOptionsCard({
   id,
   title,
   image,
