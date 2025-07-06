@@ -12,14 +12,19 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const { open } = useBooking();
 
-  const selectedVariant = variants[selectedVariantIndex] || variants[0];
+  // ✅ Defensive: fallback to empty array and object
+  const safeVariants = Array.isArray(variants) ? variants : [];
+  const selectedVariant = safeVariants?.[selectedVariantIndex] || safeVariants?.[0] || {
+    name: title || "Unnamed Package",
+    price: "N/A",
+    features: [],
+  };
 
   useEffect(() => {
     if (inView) setIsVisible(true);
   }, [inView]);
 
   const handleBookNow = () => {
-    console.log(selectedVariant.name);
     open({
       title: selectedVariant.name,
       price: selectedVariant.price,
@@ -40,7 +45,7 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
       <div style={{ width: "100%", height: "300px", position: "relative" }}>
         <Image
           src={image}
-          alt={`${title} in Dubai`}
+          alt={`${title || selectedVariant.name} in Dubai`}
           fill
           style={{ objectFit: "cover" }}
           className="card-img-top"
@@ -53,48 +58,55 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
         <h3 className="card-title h5 text-center">{selectedVariant.name}</h3>
 
         {/* Toggle Buttons */}
-        {variants.length > 1 && (
+        {safeVariants.length > 1 && (
           <div className="d-flex justify-content-center gap-2 mb-3 flex-wrap">
-            {variants.map((variant, index) => (
+            {safeVariants.map((variant, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedVariantIndex(index)}
                 className={`btn btn-sm ${index === selectedVariantIndex ? "btn-warning" : "btn-outline-warning"}`}
               >
-                {variant.btnVal}
+                {variant.btnVal || variant.name || `Option ${index + 1}`}
               </button>
             ))}
           </div>
         )}
 
-        <p className="text-center fw-bold text-success mb-3">{selectedVariant.price}</p>
+        {selectedVariant.price && (
+          <p className="text-center fw-bold text-success mb-3">{selectedVariant.price}</p>
+        )}
 
+        {/* Features */}
         <ul className="list-unstyled">
-          {selectedVariant.features.map((item, index) => (
-            <li
-              key={index}
-              style={{
-                fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
-                borderBottom: index !== selectedVariant.features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
-                padding: "0.7rem",
-              }}
-            >
-              {item}
-            </li>
-          ))}
+          {Array.isArray(selectedVariant.features) &&
+            selectedVariant.features.map((item, index) => (
+              <li
+                key={index}
+                style={{
+                  fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
+                  borderBottom:
+                    index !== selectedVariant.features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
+                  padding: "0.7rem",
+                }}
+              >
+                {item}
+              </li>
+            ))}
         </ul>
       </div>
 
-      {/* Buttons */}
+      {/* Footer Buttons */}
       <div className="card-footer d-flex align-items-center gap-2 px-3 pb-3 bg-white border-0">
-        <a
-          href={whatsappLink}
-          className="btn border-warning btn-sm w-50 d-flex align-items-center justify-content-center fw-bold"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="bi bi-whatsapp me-1"></i> WhatsApp
-        </a>
+        {whatsappLink && (
+          <a
+            href={whatsappLink}
+            className="btn border-warning btn-sm w-50 d-flex align-items-center justify-content-center fw-bold"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="bi bi-whatsapp me-1"></i> WhatsApp
+          </a>
+        )}
 
         <button
           onClick={handleBookNow}
