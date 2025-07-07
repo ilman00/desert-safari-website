@@ -24,12 +24,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={lato.className}>
+    <html lang="en" className={`${lato.className} ${playfair.className}`}>
+
       <head>
 
       </head>
-      <BootstrapClient />
       <body>
+      <BootstrapClient />
         <div >
           <BookingProvider>
             <TopNavbar />

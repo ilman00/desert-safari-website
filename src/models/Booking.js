@@ -7,7 +7,7 @@ const BookingSchema = new mongoose.Schema(
     email: String,
     phone: String,
     pickupLocation: String,
-    safariPackage: String,
+    safariPackages: [String], // ✅ Fixed here
     price: String,
     adults: Number,
     kids: Number,
@@ -20,5 +20,6 @@ const BookingSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 
 export default mongoose.models.Booking || mongoose.model("Booking", BookingSchema);

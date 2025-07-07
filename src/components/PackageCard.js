@@ -86,7 +86,7 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
                   fontSize: "clamp(1rem, 1.3vw, 1.5rem)",
                   borderBottom:
                     index !== selectedVariant.features.length - 1 ? "1px solid rgba(0, 0, 0, 0.15)" : "none",
-                  padding: "0.7rem",
+                  padding: "0.4rem",
                 }}
               >
                 {item}

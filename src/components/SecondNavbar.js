@@ -40,7 +40,7 @@ export default function SecondNavbar() {
 
         {/* Booking Button triggers modal */}
         <div className="d-none d-lg-block me-3">
-          <button onClick={() => open()} className="btn btn-warning">Booking</button>
+          <Link href="/packages" className="btn btn-warning">Booking</Link>
         </div>
       </div>
     </nav>

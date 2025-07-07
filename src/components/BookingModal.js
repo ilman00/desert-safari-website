@@ -1,19 +1,61 @@
-// 📁 app/components/BookingModal.jsx
 "use client";
 
 import { useBooking } from "./BookingContext";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PhoneInput from './PhoneInputWrapper';
-import combinedSafaris from "@/data/combinePackageData";
+import { newPackageData } from "@/data/packages";
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
-  const [manualSelectedTitle, setManualSelectedTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [phone, setPhone] = useState('');
+  const [addOnVariants, setAddOnVariants] = useState([]);
+  const [mounted, setMounted] = useState(false);
 
-  const currentSafari = selectedSafari || combinedSafaris.find((s) => s.title === manualSelectedTitle);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const parsePrice = (priceStr) =>
+    parseInt(priceStr?.match(/\d+/)?.[0] || 0);
+
+  const currentSafari = selectedSafari;
+
+  const sectionVariants = useMemo(() => {
+    if (!currentSafari?.title) return [];
+
+    const section = newPackageData.find(section =>
+      section.cards.some(card =>
+        card.variants.some(v => v.name === currentSafari.title)
+      )
+    );
+
+    if (!section) return [];
+
+    return section.cards.flatMap(card =>
+      card.variants.map(v => ({
+        name: v.name,
+        price: parsePrice(v.price)
+      }))
+    );
+  }, [currentSafari]);
+
+  const selectedIndex = sectionVariants.findIndex(v => v.name === currentSafari?.title);
+  const addOnOptions = sectionVariants.slice(selectedIndex + 1);
+
+  const basePrice = parsePrice(currentSafari?.price);
+  const addOnPrice = addOnVariants.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = basePrice + addOnPrice;
+
+  const toggleAddOn = (option) => {
+    const exists = addOnVariants.find(v => v.name === option.name);
+    if (exists) {
+      setAddOnVariants(prev => prev.filter(v => v.name !== option.name));
+    } else {
+      setAddOnVariants(prev => [...prev, option]);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,11 +64,10 @@ export default function BookingModal() {
     const formData = new FormData(e.target);
     const data = {
       name: formData.get("name"),
-      email: formData.get("email"),
       phone,
       pickupLocation: formData.get("pickupLocation"),
-      package: selectedSafari?.title || manualSelectedTitle,
-      price: currentSafari?.price || "",
+      packages: [currentSafari?.title, ...addOnVariants.map(v => v.name)], // <-- Array of packages
+      price: totalPrice,
       adults: Number(formData.get("adults")),
       kids: Number(formData.get("kids")),
       message: formData.get("message") || "",
@@ -45,7 +86,7 @@ export default function BookingModal() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            tourName: data.package,  // ✅ Fix here
+            tourName: [currentSafari?.title, ...addOnVariants.map(v => v.name)].join(", "),
             price: data.price,
             bookingId: result.id,
           }),
@@ -68,7 +109,7 @@ export default function BookingModal() {
     }
   };
 
-  if (!show) return null;
+  if (!mounted || !show || !currentSafari?.title) return null;
 
   return (
     <>
@@ -76,27 +117,18 @@ export default function BookingModal() {
         <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
           <div className="modal-content shadow">
             <div className="modal-header">
-              <h5 className="modal-title">
-                Book {currentSafari?.title || "Your Safari"}
-              </h5>
+              <h5 className="modal-title">Book {currentSafari.title}</h5>
               <button type="button" className="btn-close" onClick={close}></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
                 <div className="row g-3">
-                  {/* Name */}
+
                   <div className="col-md-6">
                     <label className="form-label">Name</label>
                     <input type="text" className="form-control" name="name" required />
                   </div>
 
-                  {/* Email */}
-                  <div className="col-md-6">
-                    <label className="form-label">Email</label>
-                    <input type="email" className="form-control" name="email" required />
-                  </div>
-
-                  {/* Phone */}
                   <div className="col-md-6">
                     <label className="form-label">Phone Number</label>
                     <PhoneInput
@@ -111,64 +143,78 @@ export default function BookingModal() {
                     />
                   </div>
 
-                  {/* Pickup Location */}
                   <div className="col-md-6">
                     <label className="form-label">Pickup Location</label>
                     <input type="text" className="form-control" name="pickupLocation" required />
                   </div>
 
-                  {/* Package Selection */}
                   <div className="col-md-6">
-                    <label className="form-label">Safari Package</label>
-                    <select
-                      name="package"
-                      className="form-select"
-                      value={currentSafari?.title || manualSelectedTitle || ""}
-                      disabled={!!selectedSafari}
-                      onChange={(e) => setManualSelectedTitle(e.target.value)}
-                      required
-                    >
-                      <option value="" disabled>Select a package</option>
-                      {combinedSafaris.map((safari, index) => (
-                        <option key={index} value={safari.title}>
-                          {safari.title}
-                        </option>
-                      ))}
-                    </select>
+                    <label className="form-label">Selected Package</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={currentSafari.title}
+                      disabled
+                    />
+                    <input type="hidden" name="package" value={currentSafari.title} />
                   </div>
 
-                  {/* Price Display */}
-                  {currentSafari?.price && (
-                    <div className="col-md-6">
-                      <label className="form-label">Price</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={currentSafari.price}
-                        disabled
-                      />
+                  <div className="col-md-4">
+                    <label className="form-label">Base Price</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={`${basePrice} AED`}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="col-md-4">
+                    <label className="form-label fw-bold">Total Price</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={`${totalPrice} AED`}
+                      disabled
+                    />
+                  </div>
+
+                  {addOnOptions.length > 0 && (
+                    <div className="col-12">
+                      <label className="form-label">Add-on Packages</label>
+                      <div className="d-flex flex-wrap gap-2">
+                        {addOnOptions.map((option, idx) => {
+                          const isSelected = addOnVariants.some(v => v.name === option.name);
+                          return (
+                            <button
+                              type="button"
+                              key={idx}
+                              className={`btn ${isSelected ? "btn-primary" : "btn-outline-primary"}`}
+                              onClick={() => toggleAddOn(option)}
+                            >
+                              {option.name} (+{option.price} AED)
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
 
-                  {/* Adults */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Adults</label>
                     <input type="number" className="form-control" name="adults" min="1" required />
                   </div>
 
-                  {/* Kids */}
                   <div className="col-md-3">
                     <label className="form-label">No. of Kids</label>
                     <input type="number" className="form-control" name="kids" min="0" required />
                   </div>
 
-                  {/* Message */}
                   <div className="col-12">
                     <label className="form-label">Message</label>
                     <textarea className="form-control" name="message" rows="3" placeholder="Optional message"></textarea>
                   </div>
 
-                  {/* Payment Buttons */}
                   <div className="alert alert-success text-center py-2" role="alert">
                     💳 Enjoy 5% OFF when you pay online — secure your spot now!
                   </div>

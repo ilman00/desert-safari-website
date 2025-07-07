@@ -8,8 +8,6 @@ const  combinedSafaris = [
     { title: "Private Desert Safari with Sahara Fortness Dinner", price: "2049 AED | Per Group" },
     { title: "PRIVATE DESERT SAFARI AT BAB AL SHAMS RESORT", price: "2450 AED | Per Group" },
     { title: "DESERT SAFARI SHOW WITH FALCONRY WITH DINNER", price: "1999 AED | Per Person" },
-    { title: "PRIVATE DESERT SAFARI AT BAB AL SHAMS RESORT", price: "1049 AED | Per Group" },
-    { title: "DESERT SAFARI SHOW WITH FALCONRY WITH DINNER", price: "1399 AED | Per Person" },
     { title: "Dubai City Tour", price: "AED 125 | PER PERSON" },
     { title: "Abu Dhabi City Tour", price: "AED 150 | PER PERSONs" },
     { title: "Museum Of Future", price: "140 AED | PER PERSON" },
@@ -19,5 +17,7 @@ const  combinedSafaris = [
     { title: "Hot Air Balloon Ride (Without Breakfast)", price: "AED 1050 | PER PERSON" },
     { title: "Hot Air Balloon Ride (With Breakfast)", price: "AED 1050 | PER PERSON" }
   ];
+
+
   
   export default combinedSafaris
