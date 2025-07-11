@@ -42,16 +42,29 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
       }}
     >
       {/* Image */}
-      <div style={{ width: "100%", height: "300px", position: "relative" }}>
-        <Image
-          src={image}
-          alt={`${title || selectedVariant.name} in Dubai`}
-          fill
-          style={{ objectFit: "cover" }}
-          className="card-img-top"
-          sizes="(max-width: 768px) 100vw, 400px"
-        />
+      <div
+        style={{
+          width: "100%",
+          height: "300px",
+          position: "relative",
+          overflow: "hidden", // ensures image doesn't overflow
+        }}
+      >
+      <Image
+      src={image}
+      alt={`${title || selectedVariant.name} in Dubai`}
+      fill
+      style={{
+        objectFit: "cover",
+        objectPosition: "top", // try "center" or "bottom" if needed
+      }}
+      className="card-img-top"
+      sizes="(max-width: 768px) 100vw, 400px"
+    />
+    
+
       </div>
+
 
       {/* Details */}
       <div className="card-body">

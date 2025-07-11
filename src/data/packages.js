@@ -23,7 +23,7 @@ export const newPackageData = [
     title: "Evening Desert Safari Dubai Deals",
     cards: [
       {
-        image: "/images/basic-evening-safari.jpg",
+        image: "/images/evening-desert-safari.jpg",
         title: "Evening Desert Safari",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
@@ -43,7 +43,7 @@ export const newPackageData = [
         ],
       },
       {
-        image: "/images/Gallery-Image-1-2.png",
+        image: "/images/quad-bikes.jpg",
         title: "Safari With Quad Bikes",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
@@ -57,7 +57,7 @@ export const newPackageData = [
         ],
       },
       {
-        image: "/images/safari-dune-buggy-1.png", // Default image
+        image: "/images/dune-buggy.png", // Default image
         title: "Desert Safari with Dune Buggy",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
@@ -198,7 +198,7 @@ export const newPackageData = [
               "💧 Free Drinks (Water, Soft Drinks, Coffee, Tea)",
               "🐪 Short Camel Ride",
               "🏄 Sandboarding",
-              "🚙 30 mints 4-Seater Dune Buggy Ride",
+              "🚙 30 mints 4-Seater Canam",
               "🍪 Complimentary Snacks after sunset",
               "🚬 Separate Smoking Area",
               "🚻 Separate Toilets for Men & Women",
@@ -216,7 +216,7 @@ export const newPackageData = [
         bookLink: "/book",
         variants: [
           {
-            name: "Private Morning Desert Safari With Quad Bikes",
+            name: "Private Vahicle 4x4 Morning Desert Safari",
             btnVal: "Private",
             price: "1149 AED | Per Person",
             features: [
@@ -233,7 +233,7 @@ export const newPackageData = [
           },
 
           {
-            name: "Private Morning Desert Safari With Dune Buggy",
+            name: "Private  Morning Desert Safari With Dune Buggy",
             btnVal: "Dune Buggy",
             price: "1399 AED | Per Person",
             features: [
@@ -348,10 +348,6 @@ export const newPackageData = [
       },
     ],
   }
-  
-
-
-  // more sections...
 ];
 
 

@@ -1,2 +1,9 @@
+# *
 User-agent: *
-Disallow: /
+Allow: /
+
+# Host
+Host: https://www.eveningdeserttours.com
+
+# Sitemaps
+Sitemap: https://www.eveningdeserttours.com/sitemap.xml

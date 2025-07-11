@@ -125,12 +125,12 @@ export default function BookingModal() {
                 <div className="row g-3">
 
                   <div className="col-md-6">
-                    <label className="form-label">Name</label>
+                    <label className="form-label">Name <strong className="text-danger">*</strong> </label>
                     <input type="text" className="form-control" name="name" required />
                   </div>
 
                   <div className="col-md-6">
-                    <label className="form-label">Phone Number</label>
+                    <label className="form-label">Phone Number <strong className="text-danger">*</strong> </label>
                     <PhoneInput
                       country={'ae'}
                       value={phone}
@@ -145,7 +145,7 @@ export default function BookingModal() {
 
                   <div className="col-md-6">
                     <label className="form-label">Pickup Location</label>
-                    <input type="text" className="form-control" name="pickupLocation" required />
+                    <input type="text" className="form-control" name="pickupLocation" />
                   </div>
 
                   <div className="col-md-6">
@@ -207,7 +207,7 @@ export default function BookingModal() {
 
                   <div className="col-md-3">
                     <label className="form-label">No. of Kids</label>
-                    <input type="number" className="form-control" name="kids" min="0" required />
+                    <input type="number" className="form-control" name="kids" min="0" />
                   </div>
 
                   <div className="col-12">

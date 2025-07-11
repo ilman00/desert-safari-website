@@ -15,7 +15,7 @@ export default function Hero() {
       <div
         className="position-absolute top-0 start-0 w-100 h-100"
         style={{
-          background: "rgba(0, 90, 90, 0.7)",
+          background: "rgba(0, 90, 90, 0.4)",
           backdropFilter: "blur(1px)",
           WebkitBackdropFilter: "blur(5px)",
           border: "1px solid rgba(27, 125, 117, 0.3)",
