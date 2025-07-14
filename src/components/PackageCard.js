@@ -6,12 +6,12 @@ import { useBooking } from "@/components/BookingContext";
 import "animate.css";
 import Image from "next/image";
 
-export default function PackageCard({ image, title, whatsappLink, bookLink, variants }) {
+export default function PackageCard({ image, title, whatsappLink, bookLink, bookingBtn, variants }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [isVisible, setIsVisible] = useState(false);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const { open } = useBooking();
-
+  console.log(bookingBtn);
   // ✅ Defensive: fallback to empty array and object
   const safeVariants = Array.isArray(variants) ? variants : [];
   const selectedVariant = safeVariants?.[selectedVariantIndex] || safeVariants?.[0] || {
@@ -50,18 +50,18 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
           overflow: "hidden", // ensures image doesn't overflow
         }}
       >
-      <Image
-      src={image}
-      alt={`${title || selectedVariant.name} in Dubai`}
-      fill
-      style={{
-        objectFit: "cover",
-        objectPosition: "top", // try "center" or "bottom" if needed
-      }}
-      className="card-img-top"
-      sizes="(max-width: 768px) 100vw, 400px"
-    />
-    
+        <Image
+          src={image}
+          alt={`${title || selectedVariant.name} in Dubai`}
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: "top", // try "center" or "bottom" if needed
+          }}
+          className="card-img-top"
+          sizes="(max-width: 768px) 100vw, 400px"
+        />
+
 
       </div>
 
@@ -113,7 +113,10 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
         {whatsappLink && (
           <a
             href={whatsappLink}
-            className="btn border-warning btn-sm w-50 d-flex align-items-center justify-content-center fw-bold"
+            className={
+              "btn border-warning btn-sm d-flex align-items-center justify-content-center fw-bold " +
+              (bookingBtn === false ? "w-100" : "w-50")
+            }
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -121,14 +124,17 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, vari
           </a>
         )}
 
-        <button
-          onClick={handleBookNow}
-          className="btn btn-warning w-50 d-flex align-items-center justify-content-center"
-          style={{ height: "48px", fontWeight: "bold", fontSize: "1rem" }}
-        >
-          Book Now
-        </button>
+        {bookingBtn !== false && (
+          <button
+            onClick={handleBookNow}
+            className="btn btn-warning w-50 d-flex align-items-center justify-content-center"
+            style={{ height: "48px", fontWeight: "bold", fontSize: "1rem" }}
+          >
+            Book Now
+          </button>
+        )}
       </div>
+
     </article>
   );
 }

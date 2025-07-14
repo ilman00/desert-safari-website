@@ -13,6 +13,9 @@ export default function BookingModal() {
   const [addOnVariants, setAddOnVariants] = useState([]);
   const [mounted, setMounted] = useState(false);
 
+  const [formAdults, setFormAdults] = useState(1);
+  const [formKids, setFormKids] = useState(0);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -36,17 +39,16 @@ export default function BookingModal() {
     return section.cards.flatMap(card =>
       card.variants.map(v => ({
         name: v.name,
-        price: parsePrice(v.price)
+        price: parsePrice(v.price),
+        isGroupPackage: v.isGroupPackage || false,
+        maxPeople: v.maxPeople || 6
       }))
     );
   }, [currentSafari]);
 
+  const selectedVariant = sectionVariants.find(v => v.name === currentSafari?.title);
   const selectedIndex = sectionVariants.findIndex(v => v.name === currentSafari?.title);
   const addOnOptions = sectionVariants.slice(selectedIndex + 1);
-
-  const basePrice = parsePrice(currentSafari?.price);
-  const addOnPrice = addOnVariants.reduce((sum, item) => sum + item.price, 0);
-  const totalPrice = basePrice + addOnPrice;
 
   const toggleAddOn = (option) => {
     const exists = addOnVariants.find(v => v.name === option.name);
@@ -57,6 +59,32 @@ export default function BookingModal() {
     }
   };
 
+  const calculateTotalPrice = (basePrice, addOns, adults, kids, variant) => {
+    const addOnTotal = addOns.reduce((sum, item) => sum + item.price, 0);
+    const baseTotal = basePrice + addOnTotal;
+  
+    if (variant?.isGroupPackage) {
+      const totalPeople = adults + kids;
+      const vehicleCount = Math.ceil(totalPeople / variant.maxPeople);
+      return baseTotal * vehicleCount;
+    } else {
+      const extraAdults = Math.max(adults - 1, 0);
+      const extraCharge = (baseTotal / 2) * extraAdults;
+      return baseTotal + extraCharge;
+    }
+  };
+  
+  const totalPrice = useMemo(() => {
+    if (!selectedVariant) return 0;
+    return calculateTotalPrice(
+      selectedVariant.price,
+      addOnVariants,
+      formAdults,
+      formKids,
+      selectedVariant
+    );
+  }, [selectedVariant, addOnVariants, formAdults, formKids]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -66,10 +94,10 @@ export default function BookingModal() {
       name: formData.get("name"),
       phone,
       pickupLocation: formData.get("pickupLocation"),
-      packages: [currentSafari?.title, ...addOnVariants.map(v => v.name)], // <-- Array of packages
+      packages: [currentSafari?.title, ...addOnVariants.map(v => v.name)],
       price: totalPrice,
-      adults: Number(formData.get("adults")),
-      kids: Number(formData.get("kids")),
+      adults: formAdults,
+      kids: formKids,
       message: formData.get("message") || "",
     };
 
@@ -125,12 +153,12 @@ export default function BookingModal() {
                 <div className="row g-3">
 
                   <div className="col-md-6">
-                    <label className="form-label">Name <strong className="text-danger">*</strong> </label>
+                    <label className="form-label">Name <strong className="text-danger">*</strong></label>
                     <input type="text" className="form-control" name="name" required />
                   </div>
 
                   <div className="col-md-6">
-                    <label className="form-label">Phone Number <strong className="text-danger">*</strong> </label>
+                    <label className="form-label">Phone Number <strong className="text-danger">*</strong></label>
                     <PhoneInput
                       country={'ae'}
                       value={phone}
@@ -164,7 +192,7 @@ export default function BookingModal() {
                     <input
                       type="text"
                       className="form-control"
-                      value={`${basePrice} AED`}
+                      value={`${selectedVariant?.price || 0} AED`}
                       disabled
                     />
                   </div>
@@ -202,12 +230,27 @@ export default function BookingModal() {
 
                   <div className="col-md-3">
                     <label className="form-label">No. of Adults</label>
-                    <input type="number" className="form-control" name="adults" min="1" required />
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="adults"
+                      min="1"
+                      required
+                      value={formAdults}
+                      onChange={(e) => setFormAdults(Number(e.target.value))}
+                    />
                   </div>
 
                   <div className="col-md-3">
                     <label className="form-label">No. of Kids</label>
-                    <input type="number" className="form-control" name="kids" min="0" />
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="kids"
+                      min="0"
+                      value={formKids}
+                      onChange={(e) => setFormKids(Number(e.target.value))}
+                    />
                   </div>
 
                   <div className="col-12">

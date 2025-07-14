@@ -32,13 +32,23 @@ export const newPackageData = [
             name: "Evening Desert Safari",
             btnVal: "Basic",
             price: "89 AED | Per Person",
+            isGroupPackage: false,
             features: [...features],
           },
           {
             name: "VIP Evening Safari",
             btnVal: "VIP",
             price: "149 AED | Per Person",
+            isGroupPackage: false,
             features: [...features, "💎 VIP Setting Area", "🍽️ Unlimited Buffet"],
+          },
+          {
+            name: "Private Vahicle 4x4 Morning Desert Safari",
+            btnVal: "Private",
+            price: "1149 AED | Upto 6 Person",
+            isGroupPackage: true,
+            maxPeople: 7,
+            features: [...features],
           },
         ],
       },
@@ -62,12 +72,13 @@ export const newPackageData = [
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
         variants: [
-          
-          
+
+
           {
             name: "Evening Desert Safari With Dune Buggy",
             btnVal: "Dune Buggy",
             price: "1399 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",
@@ -92,6 +103,7 @@ export const newPackageData = [
             name: "Evening Desert Safari With Canam",
             btnVal: "Canam",
             price: "1399 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",
@@ -133,6 +145,7 @@ export const newPackageData = [
             name: "Morning Desert Safari",
             btnVal: "Basic",
             price: "119 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚙 Pickup from your location",
               "🏨 Pick and drop from hotel/home",
@@ -148,6 +161,7 @@ export const newPackageData = [
             name: "Morning Safari With Quad Bike",
             btnVal: "Quad Bike",
             price: "249 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚙 Pickup from your location",
               "📅 Pickup Time: 8:00-8:30 AM",
@@ -163,6 +177,34 @@ export const newPackageData = [
         ],
       },
       {
+        image: "/images/morning-pic-3.webp",
+        title: "Private Morning Desert Safari",
+        whatsappLink: "https://wa.me/971501234567",
+        bookLink: "/book",
+        variants: [
+          {
+            name: "Private Vahicle 4x4 Morning Desert Safari",
+            btnVal: "Private",
+            price: "1149 AED | Upto 6 Persons",
+            isGroupPackage: true,
+            maxPeople: 6,
+            features: [
+              "🚙 Pickup from your location by a Private 4x4 Vahicle",
+              "🏨 Pick and drop from hotel/home",
+              "📸 Photo opportunity on high dunes",
+              "🏄 Sand Boarding",
+              "🐪 Camel Ride",
+              "🚴‍♂️ Quad Bike (Extra Payment)",
+              "🏨 Drop back to hotel/residence",
+              "🚗 Dune Bashing",
+              "📸 Professional photography services",
+            ],
+          },
+
+
+        ],
+      },
+      {
         image: "/images/morning-pic-2.png",
         title: "Morning Desert Safari With Dune Bunny",
         whatsappLink: "https://wa.me/971501234567",
@@ -172,6 +214,7 @@ export const newPackageData = [
             name: "Morning Desert Safari With Dune Buggy",
             btnVal: "Dune Buggy",
             price: "1399 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",
@@ -191,6 +234,7 @@ export const newPackageData = [
             name: "Morning Desert Safari With Canam",
             btnVal: "Canam",
             price: "1399 AED | Per Person",
+            isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",
@@ -209,72 +253,7 @@ export const newPackageData = [
           },
         ],
       },
-      {
-        image: "/images/morning-pic-3.webp",
-        title: "Private Morning Desert Safari",
-        whatsappLink: "https://wa.me/971501234567",
-        bookLink: "/book",
-        variants: [
-          {
-            name: "Private Vahicle 4x4 Morning Desert Safari",
-            btnVal: "Private",
-            price: "1149 AED | Per Person",
-            features: [
-              "🚙 Pickup from your location",
-              "🏨 Pick and drop from hotel/home",
-              "📸 Photo opportunity on high dunes",
-              "🏄 Sand Boarding",
-              "🐪 Camel Ride",
-              "🚴‍♂️ Quad Bike (Extra Payment)",
-              "🏨 Drop back to hotel/residence",
-              "🚗 Dune Bashing",
-              "📸 Professional photography services",
-            ],
-          },
 
-          {
-            name: "Private  Morning Desert Safari With Dune Buggy",
-            btnVal: "Dune Buggy",
-            price: "1399 AED | Per Person",
-            features: [
-              "🚗 Doorstep Pickup in shared 4×4",
-              "🏜️ Red Dune Bashing in shared 4×4",
-              "⏳ 25-60 min Adventure",
-              "💧 Free Drinks (Water, Soft Drinks, Coffee, Tea)",
-              "🐪 Short Camel Ride",
-              "🏄 Sandboarding",
-              "🚙 30 mints 4-Seater Dune Buggy Ride",
-              "🍪 Complimentary Snacks after sunset",
-              "🚬 Separate Smoking Area",
-              "🚻 Separate Toilets for Men & Women",
-              "🚕 Drop-off at Designated Location",
-              "👗 Arabic Costume for Photo Sessions",
-              "🧑‍🏫 Trained Safari Guide for Assistance",
-            ],
-          },
-
-          {
-            name: "Private Morning Desert Safari With Canam",
-            btnVal: "Canam",
-            price: "1399 AED | Per Person",
-            features: [
-              "🚗 Doorstep Pickup in shared 4×4",
-              "🏜️ Red Dune Bashing in shared 4×4",
-              "⏳ 25-60 min Adventure",
-              "💧 Free Drinks (Water, Soft Drinks, Coffee, Tea)",
-              "🐪 Short Camel Ride",
-              "🏄 Sandboarding",
-              "🚙 30 mints 4-Seater Dune Buggy Ride",
-              "🍪 Complimentary Snacks after sunset",
-              "🚬 Separate Smoking Area",
-              "🚻 Separate Toilets for Men & Women",
-              "🚕 Drop-off at Designated Location",
-              "👗 Arabic Costume for Photo Sessions",
-              "🧑‍🏫 Trained Safari Guide for Assistance",
-            ],
-          },
-        ],
-      },
     ],
   },
 
@@ -288,11 +267,13 @@ export const newPackageData = [
         title: "Private Desert Safari with Sahara Fortness Dinner",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
+        "bookingBtn": false,
         variants: [
           {
             name: "Sahara Fortness Dinner",
-            btnVal: "Sahara Dinner",
-            price: "2049 AED | Per Group",
+            // btnVal: "Sahara Dinner",
+            // price: "2049 AED | Per Group",
+            isGroupPackage: false,
             features: [
               "🚗 Private pickup from your location",
               "🚙 4×4 SUV for thrilling safari & camp",
@@ -323,11 +304,12 @@ export const newPackageData = [
         title: "Private Desert Safari at Bab Al Shams Resort",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
+        "bookingBtn": false,
         variants: [
           {
             name: "Bab Al Shams Resort",
-            btnVal: "Bab Al Shams",
-            price: "2450 AED | Per Group",
+            // btnVal: "Bab Al Shams",
+            // price: "2450 AED | Per Group",
             features: [...features], // replace with actual features if available
           },
         ],
@@ -337,11 +319,12 @@ export const newPackageData = [
         title: "Desert Safari Show with Falconry & Dinner",
         whatsappLink: "https://wa.me/971501234567",
         bookLink: "/book",
+        "bookingBtn": false,
         variants: [
           {
             name: "Falconry Show & Dinner",
-            btnVal: "Falcon Show",
-            price: "1999 AED | Per Person",
+            // btnVal: "Falcon Show",
+            // price: "1999 AED | Per Person",
             features: [...features], // replace with actual features if available
           },
         ],
