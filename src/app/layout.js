@@ -38,7 +38,7 @@ export const metadata = {
     siteName: 'Evening Desert Tours',
     images: [
       {
-        url: 'https://eveningdeserttours.com/og-image.jpg', // Replace with real image
+        url: 'https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp', // Replace with real image
         width: 1200,
         height: 630,
         alt: 'Dubai Desert Safari - Morning & Evening',
@@ -51,7 +51,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Dubai Desert Safari | Morning & Evening Tours',
     description: 'Explore Dubai desert with morning and evening safari options. Thrilling dune rides, camel treks, and cultural shows await. Reserve your adventure!',
-    images: ['https://eveningdeserttours.com/og-image.jpg'], // Replace with real image
+    images: ['https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp'], // Replace with real image
   },
   robots: {
     index: true,
