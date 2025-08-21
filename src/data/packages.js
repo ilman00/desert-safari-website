@@ -43,9 +43,9 @@ export const newPackageData = [
             features: [...features, "💎 VIP Setting Area", "🍽️ Unlimited Buffet"],
           },
           {
-            name: "Private Vahicle 4x4 Morning Desert Safari",
+            name: "Private Vahicle 4x4 Evening Desert Safari",
             btnVal: "Private",
-            price: "1149 AED | Upto 6 Person",
+            price: "950 AED | Upto 6 Person",
             isGroupPackage: true,
             maxPeople: 7,
             features: [...features],
@@ -77,7 +77,7 @@ export const newPackageData = [
           {
             name: "Evening Desert Safari With Dune Buggy",
             btnVal: "Dune Buggy",
-            price: "1399 AED | Per Person",
+            price: "799 AED | Per Person",
             isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
@@ -102,7 +102,7 @@ export const newPackageData = [
           {
             name: "Evening Desert Safari With Canam",
             btnVal: "Canam",
-            price: "1399 AED | Per Person",
+            price: "899 AED | Per Person",
             isGroupPackage: false,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",

@@ -4,21 +4,31 @@ import { useBooking } from "./BookingContext";
 import { useState, useEffect, useMemo } from "react";
 import PhoneInput from './PhoneInputWrapper';
 import { newPackageData } from "@/data/packages";
+import PayPalButton from "./paypal/PayPalButton"; // ← Make sure you have this component
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
+  const [pendingPaymentType, setPendingPaymentType] = useState(null);
   const [phone, setPhone] = useState('');
   const [addOnVariants, setAddOnVariants] = useState([]);
   const [mounted, setMounted] = useState(false);
 
   const [formAdults, setFormAdults] = useState(1);
   const [formKids, setFormKids] = useState(0);
+  const [bookingId, setBookingId] = useState(null);
+  const [showPayPalButtons, setShowPayPalButtons] = useState(false);
+  const [packages, setPackages] = useState([])
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!pendingPaymentType) return;
+    const formElement = document.querySelector("#bookingForm");
+    if (formElement) formElement.requestSubmit();
+    setPendingPaymentType(null);
+  }, [pendingPaymentType]);
 
   const parsePrice = (priceStr) =>
     parseInt(priceStr?.match(/\d+/)?.[0] || 0);
@@ -52,17 +62,15 @@ export default function BookingModal() {
 
   const toggleAddOn = (option) => {
     const exists = addOnVariants.find(v => v.name === option.name);
-    if (exists) {
-      setAddOnVariants(prev => prev.filter(v => v.name !== option.name));
-    } else {
-      setAddOnVariants(prev => [...prev, option]);
-    }
+    setAddOnVariants(prev =>
+      exists ? prev.filter(v => v.name !== option.name) : [...prev, option]
+    );
   };
 
   const calculateTotalPrice = (basePrice, addOns, adults, kids, variant) => {
     const addOnTotal = addOns.reduce((sum, item) => sum + item.price, 0);
     const baseTotal = basePrice + addOnTotal;
-  
+
     if (variant?.isGroupPackage) {
       const totalPeople = adults + kids;
       const vehicleCount = Math.ceil(totalPeople / variant.maxPeople);
@@ -73,7 +81,7 @@ export default function BookingModal() {
       return baseTotal + extraCharge;
     }
   };
-  
+
   const totalPrice = useMemo(() => {
     if (!selectedVariant) return 0;
     return calculateTotalPrice(
@@ -100,30 +108,21 @@ export default function BookingModal() {
       kids: formKids,
       message: formData.get("message") || "",
     };
-
+    setPackages(data.packages)
     try {
       const bookingRes = await fetch("/api/bookings", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
       const result = await bookingRes.json();
       if (!bookingRes.ok || !result.id) throw new Error("Booking failed");
 
+      setBookingId(result.id);
+
       if (selectedPayment === "online") {
-        const checkoutRes = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            tourName: [currentSafari?.title, ...addOnVariants.map(v => v.name)].join(", "),
-            price: data.price,
-            bookingId: result.id,
-          }),
-        });
-
-        const { url } = await checkoutRes.json();
-        if (!url) throw new Error("Checkout failed");
-
-        window.location.href = url;
+        setShowPayPalButtons(true);
       } else {
         alert("Booking confirmed! Please pay in cash at pickup.");
         close();
@@ -149,7 +148,7 @@ export default function BookingModal() {
               <button type="button" className="btn-close" onClick={close}></button>
             </div>
             <div className="modal-body">
-              <form onSubmit={handleSubmit}>
+              <form id="bookingForm" onSubmit={handleSubmit}>
                 <div className="row g-3">
 
                   <div className="col-md-6">
@@ -264,10 +263,13 @@ export default function BookingModal() {
 
                   <div className="col-12 d-flex gap-3">
                     <button
-                      type="submit"
-                      className="btn btn-warning w-100 d-flex justify-content-center align-items-center"
+                      type="button"
+                      className="btn btn-warning w-100"
                       disabled={loading}
-                      onClick={() => setSelectedPayment("online")}
+                      onClick={() => {
+                        setPendingPaymentType("online");
+                        setSelectedPayment("online");
+                      }}
                     >
                       {loading && selectedPayment === "online" ? (
                         <>
@@ -280,10 +282,13 @@ export default function BookingModal() {
                     </button>
 
                     <button
-                      type="submit"
-                      className="btn btn-light border w-100 d-flex justify-content-center align-items-center"
+                      type="button"
+                      className="btn btn-light border w-100"
                       disabled={loading}
-                      onClick={() => setSelectedPayment("offline")}
+                      onClick={() => {
+                        setPendingPaymentType("offline");
+                        setSelectedPayment("offline");
+                      }}
                     >
                       {loading && selectedPayment === "offline" ? (
                         <>
@@ -297,6 +302,12 @@ export default function BookingModal() {
                   </div>
                 </div>
               </form>
+
+              {showPayPalButtons && bookingId && (
+                <div className="mt-4">
+                  <PayPalButton bookingId={bookingId} price={totalPrice} description={packages} />
+                </div>
+              )}
             </div>
           </div>
         </div>
