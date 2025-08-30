@@ -18,11 +18,11 @@ export default function TopNavbar() {
         <div className="col-12 col-md-auto mb-2 mb-md-0 text-center text-md-start">
           <span className="me-3 d-block d-md-inline">
             <i className="bi bi-envelope-fill me-1"></i>
-            info@safaridesert.ae
+            eesamuneeb@gmail.com
           </span>
           <span className="d-block d-md-inline">
             <i className="bi bi-telephone-fill me-1"></i>
-            +971 55 123 4567
+            +971 50 424 7436
           </span>
         </div>
 

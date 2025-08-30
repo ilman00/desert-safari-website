@@ -121,7 +121,7 @@ export default function CustomPackageForm() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 mb-4">
       <h2>Create Custom Package</h2>
       <form onSubmit={handleSubmit}>
         {/* Title */}

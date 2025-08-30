@@ -57,7 +57,7 @@ export default function ContactForm() {
                         <i className="bi bi-envelope-fill text-success fs-3 me-3"></i>
                         <div>
                             <h6 className="mb-1 fw-bold">Email</h6>
-                            <p className="mb-0">info@safaridesert.ae<br />support@safaridesert.ae</p>
+                            <p className="mb-0">eesamuneeb@gmail.com<br />sherdesertsafari@gmail.com</p>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@ export default function ContactForm() {
                         <i className="bi bi-telephone-fill text-success fs-3 me-3"></i>
                         <div>
                             <h6 className="mb-1 fw-bold">Phone</h6>
-                            <p className="mb-0">+971 50 123 4567<br />+971 52 765 4321</p>
+                            <p className="mb-0">+971 50 424 7436</p>
                         </div>
                     </div>
                 </div>
