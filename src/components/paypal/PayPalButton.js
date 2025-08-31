@@ -33,7 +33,6 @@ export default function PayPalButton({bookingId ,price , description}) {
         if (container) container.innerHTML = '';
 
         window.paypal.Buttons({
-          fundingSource: window.paypal.FUNDING.CARD, // Only show card button
           style: {
             layout: 'vertical',
             color: 'black',

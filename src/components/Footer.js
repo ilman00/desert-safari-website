@@ -110,9 +110,12 @@ export default function Footer() {
                 <h5 className="mb-3 text-uppercase text-warning">Support</h5>
                 <ul className="list-unstyled">
                   <li className="mb-2 text-light">Help Center</li>
-                  <li className="mb-2 text-light">Ticket Support</li>
                   <li className="mb-2 text-light"><Link href="/faqs" className="text-light text-decoration-none">FAQ</Link>  </li>
-                  <li className="mb-2 text-light">Contact Us</li>
+                  <li className="mb-2">
+                    <Link href="/contact-us" className="text-light text-decoration-none">
+                      Contact Us
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
@@ -125,11 +128,7 @@ export default function Footer() {
                       About Us
                     </Link>
                   </li>
-                  <li className="mb-2">
-                    <Link href="#" className="text-light text-decoration-none">
-                      Article & News
-                    </Link>
-                  </li>
+                  
                   <li className="mb-2">
                     <Link href="/contact-us" className="text-light text-decoration-none">
                       Contact Us
