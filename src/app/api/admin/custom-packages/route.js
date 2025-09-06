@@ -1,46 +1,55 @@
-import {dbConnect} from "../../../../lib/dbConnect";
-import { NextResponse } from "next/server";
-import { CustomPackage } from "@/models/CustomPackageSchema";
-
+import { dbConnect } from "@/lib/dbConnect";
+import Booking from "@/models/Booking";
 
 export async function POST(req) {
   try {
+    const body = await req.json();
     await dbConnect();
 
-    const body = await req.json();
-    const { title, description, price, addons, expiryDate, slug, imageUrl } =
-      body;
-
-    if (!title || typeof price !== "number" || isNaN(price)) {
-      return NextResponse.json(
-        { error: "Valid title and price are required" },
-        { status: 400 }
-      );
+    // Basic validation
+    const required = ["name", "phone", "pickupLocation"];
+    for (const k of required) {
+      if (!body[k]) {
+        return new Response(
+          JSON.stringify({ success: false, error: `${k} is required` }),
+          { status: 400 }
+        );
+      }
     }
 
-    // Filter addons: must have name, price optional
-    const cleanedAddons = Array.isArray(addons)
-      ? addons.filter((a) => a.name && a.name.trim() !== "")
+    const safariPackages = Array.isArray(body.safariPackages)
+      ? body.safariPackages
+      : body.safariPackages
+      ? [body.safariPackages]
       : [];
 
-    const newPackage = await CustomPackage.create({
-      title: title.trim(),
-      description: description?.trim() || "",
-      price,
-      addons: cleanedAddons,
-      expiryDate: expiryDate ? new Date(expiryDate) : null,
-      slug,
-      imageUrl
+    const priceNum = Number(body.price);
+    const price = Number.isFinite(priceNum) ? priceNum : 0;
+
+    const booking = new Booking({
+      name: body.name,
+      email: body.email || "",
+      phone: body.phone,
+      pickupLocation: body.pickupLocation,
+      safariPackages,
+      packageId: body.packageId,
+      price,                 // schema will cast if it is String
+      adults: Number(body.adults) || 1,
+      kids: Number(body.kids) || 0,     // map kids -> kids
+      message: body.message || "",
+      paymentStatus: body.paymentType === "online" ? "paid" : "pending",
     });
 
-    return NextResponse.json(
-      { message: "Package created", id: newPackage._id },
+    const savedBooking = await booking.save();
+
+    return new Response(
+      JSON.stringify({ success: true, booking: savedBooking }),
       { status: 201 }
     );
   } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "Internal server error" },
+    console.error("Booking API error:", error);
+    return new Response(
+      JSON.stringify({ success: false, error: "Server error" }),
       { status: 500 }
     );
   }

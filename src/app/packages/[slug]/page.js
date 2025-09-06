@@ -1,13 +1,11 @@
-import React from "react";
+import CustomBookingModal from "../../../components/custom-packages/CustomeBookingModal";
 
 async function getPackage(slug) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/custom-package/${slug}`,
     { cache: "no-store" }
   );
-  if (!res.ok) {
-    return null;
-  }
+  if (!res.ok) return null;
   return res.json();
 }
 
@@ -28,7 +26,10 @@ export default async function PackagePage({ params }) {
 
   return (
     <div className="container my-5">
-      <div className="card shadow-lg border-0 rounded-4 mx-auto" style={{ maxWidth: "700px" }}>
+      <div
+        className="card shadow-lg border-0 rounded-4 mx-auto"
+        style={{ maxWidth: "700px" }}
+      >
         {/* Image */}
         {pkg.imageUrl && (
           <img
@@ -61,7 +62,7 @@ export default async function PackagePage({ params }) {
           )}
 
           {/* Addons */}
-          {pkg.addons && pkg.addons.length > 0 && (
+          {pkg.addons?.length > 0 && (
             <div className="mb-4">
               <ul className="list-group list-group-flush">
                 {pkg.addons.map((addon, i) => (
@@ -81,11 +82,13 @@ export default async function PackagePage({ params }) {
 
           {/* Action Buttons */}
           <div className="d-flex gap-3">
-            <button className="btn btn-primary flex-fill btn-lg rounded-3">
-              Online Booking
-            </button>
+            {/* Online Booking opens modal */}
+            <CustomBookingModal pkg={pkg} />
+
             <a
-              href={`https://wa.me/923000000000?text=I%20want%20to%20book%20${encodeURIComponent(pkg.title)}`}
+              href={`https://wa.me/923000000000?text=I%20want%20to%20book%20${encodeURIComponent(
+                pkg.title
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-success flex-fill btn-lg rounded-3 d-flex align-items-center justify-content-center"

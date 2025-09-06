@@ -1,67 +1,100 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo, use } from "react";
+import PayPalButton from "../paypal/PayPalButton"
 
-export default function PackagePageClient({ pkg }) {
-  const [showModal, setShowModal] = useState(false);
+export default function CustomBookingModal({ pkg }) {
   const [form, setForm] = useState({
     name: "",
+    email: "",
     phone: "",
-    pickup: "",
+    pickupLocation: "",
     adults: 1,
-    children: 0,
+    kids: 0,
     message: "",
   });
+  const [isPaypalButton, setPaypalButton] = useState(false)
   const [loading, setLoading] = useState(false);
+  const [bookingId, setBookingId] = useState("")
+  const [totalPrice, setTotalPrice] = useState(0)
 
-  const basePrice = pkg.price;
+  const basePrice = useMemo(() => {
+    const n = Number(pkg?.price);
+    return Number.isFinite(n) ? n : 0;
+  }, [pkg?.price]);
 
-  // Price calculation
-  const calcPrice = () => {
+  const calcPrice = useMemo(() => {
+    const adults = Number.isFinite(form.adults) ? form.adults : 1;
+    const kids = Number.isFinite(form.kids) ? form.kids : 0;
+
     let price = basePrice;
-    if (form.adults > 1) {
-      price += (form.adults - 1) * (basePrice * 0.5);
+    if (adults > 1) {
+      price += (adults - 1) * (basePrice * 0.5);
     }
-    if (form.children >= 2) {
-      const childPairs = Math.floor(form.children / 2);
+    if (kids >= 2) {
+      const childPairs = Math.floor(kids / 2);
       price += childPairs * (basePrice * 0.5);
     }
-    return price;
-  };
+    return Number.isFinite(price) ? price : 0;
+  }, [basePrice, form.adults, form.kids]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: name === "adults" || name === "children" ? Number(value) : value,
+      [name]: name === "adults" || name === "kids" ? Number(value) : value,
     }));
   };
 
   const handleSubmit = async (paymentType) => {
+    if (!form.name || !form.phone || !form.pickupLocation) {
+      alert("Name, phone, and pickup location are required.");
+      return;
+    }
+
     setLoading(true);
     try {
-      let finalPrice = calcPrice();
-      if (paymentType === "online") {
-        finalPrice = finalPrice * 0.95; // 5% discount
-      }
+      const finalPrice =
+        paymentType === "online" ? +(calcPrice * 0.95).toFixed(2) : calcPrice;
 
-      const res = await fetch("/api/bookings", {
+      setTotalPrice(finalPrice);
+
+      const res = await fetch("/api/admin/custom-packages/book-package", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
-          packageName: pkg.title,
-          packageId: pkg.id,
+          safariPackages: pkg?.title,
+          packageId: pkg?.id ?? pkg?._id,
           price: finalPrice,
           paymentType,
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to book");
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to book");
+      }
 
-      alert("Booking submitted successfully!");
-      setShowModal(false);
-      setForm({ name: "", phone: "", pickup: "", adults: 1, children: 0, message: "" });
+      const data = await res.json();
+      console.log("Booking response:", data);
+
+      // Adjust this based on what API actually returns
+      setBookingId(data.booking?._id);
+
+      if (paymentType === "online") {
+        setPaypalButton(true);
+      }
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        pickupLocation: "",
+        adults: 1,
+        kids: 0,
+        message: "",
+      });
     } catch (err) {
       alert(err.message);
     } finally {
@@ -69,149 +102,183 @@ export default function PackagePageClient({ pkg }) {
     }
   };
 
+
   return (
     <>
-      {/* Booking Button */}
+      {/* Trigger button */}
       <button
-        className="btn btn-primary flex-fill btn-lg rounded-3"
-        onClick={() => setShowModal(true)}
+        type="button"
+        className="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#bookingModal"
       >
         Online Booking
       </button>
 
-      {/* Modal */}
-      {showModal && (
-        <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content rounded-4 shadow">
-              <div className="modal-header">
-                <h5 className="modal-title">Book Package</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setShowModal(false)}
-                ></button>
+      {/* Bootstrap Modal */}
+      <div
+        className="modal fade"
+        id="bookingModal"
+        tabIndex="-1"
+        aria-labelledby="bookingModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="bookingModalLabel">
+                Book Package
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              {/* Name */}
+              <div className="mb-3">
+                <label className="form-label">Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className="form-control"
+                  required
+                />
               </div>
-              <div className="modal-body">
-                <form>
-                  {/* Name */}
-                  <div className="mb-3">
-                    <label className="form-label">Name *</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
 
-                  {/* Phone */}
-                  <div className="mb-3">
-                    <label className="form-label">Phone *</label>
-                    <input
-                      type="tel"
-                      className="form-control"
-                      name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  {/* Pickup */}
-                  <div className="mb-3">
-                    <label className="form-label">Pickup Location *</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="pickup"
-                      value={form.pickup}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  {/* Package Name */}
-                  <div className="mb-3">
-                    <label className="form-label">Package</label>
-                    <p className="fw-bold">{pkg.title}</p>
-                  </div>
-
-                  {/* Price */}
-                  <div className="mb-3">
-                    <label className="form-label">Price</label>
-                    <p className="fw-semibold text-success">${calcPrice()}</p>
-                  </div>
-
-                  {/* Adults */}
-                  <div className="mb-3">
-                    <label className="form-label">No. of Adults</label>
-                    <input
-                      type="number"
-                      min="1"
-                      className="form-control"
-                      name="adults"
-                      value={form.adults}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  {/* Children */}
-                  <div className="mb-3">
-                    <label className="form-label">No. of Children</label>
-                    <input
-                      type="number"
-                      min="0"
-                      className="form-control"
-                      name="children"
-                      value={form.children}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div className="mb-3">
-                    <label className="form-label">Message</label>
-                    <textarea
-                      className="form-control"
-                      name="message"
-                      rows="3"
-                      value={form.message}
-                      onChange={handleChange}
-                    ></textarea>
-                  </div>
-                </form>
+              {/* Email */}
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="form-control"
+                />
               </div>
-              <div className="modal-footer d-flex justify-content-between">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
-                <div className="d-flex gap-2">
-                  <button
-                    className="btn btn-success"
-                    disabled={loading}
-                    onClick={() => handleSubmit("offline")}
-                  >
-                    {loading ? "Saving..." : "Pay Offline"}
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    disabled={loading}
-                    onClick={() => handleSubmit("online")}
-                  >
-                    {loading ? "Saving..." : "Pay Online (5% Off)"}
-                  </button>
+
+              {/* Phone */}
+              <div className="mb-3">
+                <label className="form-label">Phone *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="form-control"
+                  required
+                />
+              </div>
+
+              {/* Pickup */}
+              <div className="mb-3">
+                <label className="form-label">Pickup Location *</label>
+                <input
+                  type="text"
+                  name="pickupLocation"
+                  value={form.pickupLocation}
+                  onChange={handleChange}
+                  className="form-control"
+                  required
+                />
+              </div>
+
+              {/* Package */}
+              <div className="mb-3">
+                <label className="form-label">Package</label>
+                <p className="fw-bold">{pkg?.title}</p>
+              </div>
+
+              {/* Price */}
+              <div className="mb-3">
+                <label className="form-label">Price</label>
+                <p className="fw-bold text-success">${calcPrice.toFixed(2)}</p>
+              </div>
+
+              {/* Adults / Kids */}
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Adults</label>
+                  <input
+                    type="number"
+                    min="1"
+                    name="adults"
+                    value={form.adults}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Children</label>
+                  <input
+                    type="number"
+                    min="0"
+                    name="kids"
+                    value={form.kids}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
                 </div>
               </div>
+
+              {/* Message */}
+              <div className="mb-3">
+                <label className="form-label">Message</label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  rows="3"
+                  className="form-control"
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-success"
+                disabled={loading}
+                onClick={() => handleSubmit("offline")}
+              >
+                {loading ? "Saving..." : "Pay Offline"}
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={loading}
+                onClick={() => handleSubmit("online")}
+              >
+                {loading ? "Saving..." : "Pay Online (5% Off)"}
+              </button>
+
+
+            </div>
+            <div className="w-50 m-auto">
+              {isPaypalButton && bookingId && totalPrice > 0 && (
+                <div className="mt-4">
+                  <PayPalButton bookingId={bookingId} price={totalPrice} description={pkg?.title} />
+                </div>
+              )}
             </div>
           </div>
+
         </div>
-      )}
+      </div>
     </>
   );
 }

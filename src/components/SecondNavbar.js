@@ -9,7 +9,7 @@ export default function SecondNavbar() {
   const { open } = useBooking();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm px-0">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm px-0" style={{zIndex: 1000}}>
       <div className="container-fluid px-0">
         <Link href="/" className="navbar-brand fw-bold ms-3">
           <Image src="/images/safari-desert.png" width={120} height={40} alt="Safari Desert" />

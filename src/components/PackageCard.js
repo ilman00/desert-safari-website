@@ -11,7 +11,6 @@ export default function PackageCard({ image, title, whatsappLink, bookLink, book
   const [isVisible, setIsVisible] = useState(false);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const { open } = useBooking();
-  console.log(bookingBtn);
   // ✅ Defensive: fallback to empty array and object
   const safeVariants = Array.isArray(variants) ? variants : [];
   const selectedVariant = safeVariants?.[selectedVariantIndex] || safeVariants?.[0] || {
