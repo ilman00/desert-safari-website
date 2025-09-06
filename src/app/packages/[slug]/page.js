@@ -32,7 +32,9 @@ export default async function PackagePage({ params }) {
       >
         {/* Image */}
         {pkg.imageUrl && (
-          <img
+          <Image
+            width={500}
+            height={500}
             src={pkg.imageUrl}
             alt={pkg.title}
             className="card-img-top rounded-top-4"

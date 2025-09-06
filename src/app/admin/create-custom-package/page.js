@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Image from "next/image";
 
 export default function CustomPackageForm() {
   const [form, setForm] = useState({
@@ -120,6 +121,7 @@ export default function CustomPackageForm() {
     }
   };
 
+
   return (
     <div className="container mt-4 mb-4">
       <h2>Create Custom Package</h2>
@@ -216,8 +218,10 @@ export default function CustomPackageForm() {
             onChange={handleImageChange}
           />
           {form.imagePreview && (
-            <img
+            <Image
               src={form.imagePreview}
+              width={200}
+              height={200}
               alt="Preview"
               className="mt-2"
               style={{ width: "200px" }}

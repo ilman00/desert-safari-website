@@ -49,6 +49,8 @@ export default function AdminDashboard() {
     fetchBookings();
   }, []);
 
+
+
   return (
     <div className="container py-5">
       <h2 className="mb-4">📋 Safari Bookings</h2>

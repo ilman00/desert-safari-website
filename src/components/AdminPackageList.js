@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+import Image from "next/image";
 export default function AdminPackagesList({ packages }) {
   const [items, setItems] = useState(packages);
 
@@ -21,7 +21,9 @@ export default function AdminPackagesList({ packages }) {
         <div className="col-md-6 col-lg-4" key={pkg._id}>
           <div className="card shadow-sm h-100 border-0">
             {pkg.imageUrl && (
-              <img
+              <Image
+                width={200}
+                height={200}
                 src={pkg.imageUrl}
                 alt={pkg.title}
                 className="card-img-top"

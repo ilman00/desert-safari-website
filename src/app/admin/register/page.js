@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function AdminRegisterPage() {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ export default function AdminRegisterPage() {
         alert("Only admin has Access to this page")
         router.push("/")
     }
-  }, [])
+  }, [router])
 
   const handleRegister = async (e) => {
     e.preventDefault();

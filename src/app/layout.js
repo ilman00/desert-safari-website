@@ -70,7 +70,6 @@ export default function RootLayout({ children }) {
 
       <head>
         <link rel="icon" href="/safari-icon.png" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
       </head>
 
       <body>
