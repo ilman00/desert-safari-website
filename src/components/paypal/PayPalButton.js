@@ -75,7 +75,7 @@ export default function PayPalButton({bookingId ,price , description}) {
     };
 
     loadPayPal();
-  }, [price]);
+  }, [price, bookingId, description]);
 
   return (
     <div
