@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "next/image";
+import { set } from "mongoose";
 
 export default function CustomPackageForm() {
   const [form, setForm] = useState({
@@ -15,6 +15,8 @@ export default function CustomPackageForm() {
     imageFile: null,
     imagePreview: ""
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const slugify = (text) =>
     text
@@ -63,6 +65,7 @@ export default function CustomPackageForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       // Validate before uploading image
@@ -115,9 +118,13 @@ export default function CustomPackageForm() {
         imageFile: null,
         imagePreview: ""
       });
+
+      setIsLoading(false);
+
     } catch (err) {
       console.error(err);
       alert("Error creating package");
+      setIsLoading(false);
     }
   };
 
@@ -242,8 +249,20 @@ export default function CustomPackageForm() {
 
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Create Package
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true">
+              </span>
+              Saving...
+            </>
+          ) : (
+            "Create Package"
+          )}
+
         </button>
       </form>
     </div>

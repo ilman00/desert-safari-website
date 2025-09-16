@@ -1,13 +1,13 @@
-import { dbConnect } from "@/lib/dbConnect";
-import Booking from "@/models/Booking";
+// /api/admin/custom-packages/route.js
+import { dbConnect } from "../../../../lib/dbConnect";
+import { CustomPackage } from "../../../../models/CustomPackageSchema";
 
 export async function POST(req) {
   try {
     const body = await req.json();
     await dbConnect();
 
-    // Basic validation
-    const required = ["name", "phone", "pickupLocation"];
+    const required = ["title", "price", "slug"];
     for (const k of required) {
       if (!body[k]) {
         return new Response(
@@ -17,40 +17,29 @@ export async function POST(req) {
       }
     }
 
-    const safariPackages = Array.isArray(body.safariPackages)
-      ? body.safariPackages
-      : body.safariPackages
-      ? [body.safariPackages]
-      : [];
-
-    const priceNum = Number(body.price);
-    const price = Number.isFinite(priceNum) ? priceNum : 0;
-
-    const booking = new Booking({
-      name: body.name,
-      email: body.email || "",
-      phone: body.phone,
-      pickupLocation: body.pickupLocation,
-      safariPackages,
-      packageId: body.packageId,
-      price,                 // schema will cast if it is String
-      adults: Number(body.adults) || 1,
-      kids: Number(body.kids) || 0,     // map kids -> kids
-      message: body.message || "",
-      paymentStatus: body.paymentType === "online" ? "paid" : "pending",
+    const pkg = new CustomPackage({
+      title: body.title,
+      description: body.description || "",
+      price: Number(body.price),
+      addons: Array.isArray(body.addons) ? body.addons : [],
+      expiryDate: body.expiryDate ? new Date(body.expiryDate) : null,
+      slug: body.slug,
+      imageUrl: body.imageUrl || ""
     });
+    
 
-    const savedBooking = await booking.save();
+    const saved = await pkg.save();
 
     return new Response(
-      JSON.stringify({ success: true, booking: savedBooking }),
+      JSON.stringify({ success: true, package: saved }),
       { status: 201 }
     );
   } catch (error) {
-    console.error("Booking API error:", error);
+    console.error("Custom package API error:", error);
     return new Response(
-      JSON.stringify({ success: false, error: "Server error" }),
+      JSON.stringify({ success: false, error: error.message }),
       { status: 500 }
     );
   }
 }
+

@@ -77,8 +77,9 @@ export const newPackageData = [
           {
             name: "Evening Desert Safari With Dune Buggy",
             btnVal: "Dune Buggy",
-            price: "799 AED | Per Person",
-            isGroupPackage: false,
+            price: "799 AED | Per Two person",
+            isGroupPackage: true,
+            maxPeople: 2,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",
@@ -103,7 +104,8 @@ export const newPackageData = [
             name: "Evening Desert Safari With Canam",
             btnVal: "Canam",
             price: "899 AED | Per Person",
-            isGroupPackage: false,
+            isGroupPackage: true,
+            maxPeople: 4,
             features: [
               "🚗 Doorstep Pickup in shared 4×4",
               "🏜️ Red Dune Bashing in shared 4×4",

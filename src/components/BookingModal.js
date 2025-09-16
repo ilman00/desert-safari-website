@@ -4,7 +4,7 @@ import { useBooking } from "./BookingContext";
 import { useState, useEffect, useMemo } from "react";
 import PhoneInput from './PhoneInputWrapper';
 import { newPackageData } from "@/data/packages";
-import PayPalButton from "./paypal/PayPalButton"; // ← Make sure you have this component
+import PayPalButton from "./paypal/PayPalButton"; 
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
