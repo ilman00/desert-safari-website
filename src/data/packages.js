@@ -31,7 +31,7 @@ export const newPackageData = [
           {
             name: "Evening Desert Safari",
             btnVal: "Basic",
-            price: "3 AED | Per Person",
+            price: "99 AED | Per Person",
             isGroupPackage: false,
             features: [...features],
           },
