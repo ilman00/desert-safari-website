@@ -13,7 +13,7 @@ export async function POST(req) {
   }
 
   const auth = Buffer.from(
-    `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`
+    `${process.env.PAYPAL_CLIENT_ID_LIVE}:${process.env.PAYPAL_SECRET_LIVE}`
   ).toString("base64");
 
   let usd_price_to_2decimal;
@@ -74,7 +74,7 @@ export async function POST(req) {
   const body = JSON.parse(JSON.stringify(rawBody));
 
   const response = await fetch(
-    "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+    `${process.env.PAYPAL_API_URL}/v2/checkout/orders`,
     {
       method: "POST",
       headers: {
