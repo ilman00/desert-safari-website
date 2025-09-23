@@ -55,7 +55,7 @@ export default function DubaiCityTourCard({ id, title, image, price, description
 
                     {/* WhatsApp Booking Button */}
                     <a
-                        href={`https://wa.me/+923499038984?text=Hi, I'm interested in booking the ${title}.`} // WhatsApp API with prefilled message
+                        href={`https://wa.me/+971504247436?text=Hi, I'm interested in booking the ${title}.`} // WhatsApp API with prefilled message
                         className="btn btn-success px-4 py-2 d-flex align-items-center gap-2"
                         target="_blank"
                         rel="noopener noreferrer"

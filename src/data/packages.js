@@ -25,7 +25,7 @@ export const newPackageData = [
       {
         image: "/images/evening-desert-safari.jpg",
         title: "Evening Desert Safari",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
           {
@@ -55,7 +55,7 @@ export const newPackageData = [
       {
         image: "/images/quad-bikes.jpg",
         title: "Safari With Quad Bikes",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
           {
@@ -69,7 +69,7 @@ export const newPackageData = [
       {
         image: "/images/dune-buggy.png", // Default image
         title: "Desert Safari with Dune Buggy",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
 
@@ -140,7 +140,7 @@ export const newPackageData = [
       {
         image: "/images/Morning-pic-1.png",
         title: "Morning Desert Safari",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
           {
@@ -181,7 +181,7 @@ export const newPackageData = [
       {
         image: "/images/morning-pic-3.webp",
         title: "Private Morning Desert Safari",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
           {
@@ -209,7 +209,7 @@ export const newPackageData = [
       {
         image: "/images/morning-pic-2.png",
         title: "Morning Desert Safari With Dune Bunny",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         variants: [
           {
@@ -267,7 +267,7 @@ export const newPackageData = [
       {
         image: "/images/private-desert-safari-1.png",
         title: "Private Desert Safari with Sahara Fortness Dinner",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         "bookingBtn": false,
         variants: [
@@ -304,7 +304,7 @@ export const newPackageData = [
       {
         image: "/images/private-desert-safari-2.png",
         title: "Private Desert Safari at Bab Al Shams Resort",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         "bookingBtn": false,
         variants: [
@@ -319,7 +319,7 @@ export const newPackageData = [
       {
         image: "/images/private-desert-safari-3.png",
         title: "Desert Safari Show with Falconry & Dinner",
-        whatsappLink: "https://wa.me/971501234567",
+        whatsappLink: "https://wa.me/+971504247436",
         bookLink: "/book",
         "bookingBtn": false,
         variants: [

@@ -25,7 +25,7 @@ export default function CardsSection() {
       description:
         "Discover the best of Dubai with our immersive City Tour. From iconic landmarks like the Burj Khalifa and Palm Jumeirah to the vibrant souks and historic Al Fahidi district, experience the perfect blend of modern marvels and rich cultural heritage. Ideal for first-time visitors and explorers alike!",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     },
 
     {
@@ -36,7 +36,7 @@ export default function CardsSection() {
       description:
         "A city tour through Abu Dhabi unveils the perfect blend of tradition and modernity, showcasing the heart of the UAE’s capital. From the architectural marvel of Sheikh Zayed Grand Mosque to the elegant Corniche and cultural landmarks, this journey reflects the city’s transformation while honoring its deep-rooted heritage. Discover how Abu Dhabi gracefully balances its historical charm with futuristic ambition.",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     },
 
     {
@@ -47,7 +47,7 @@ export default function CardsSection() {
       description:
         "A city tour will show you Dubai’s remarkable transformation, but a visit to the Museum of the Future reveals the city's vision for what lies ahead. This iconic landmark embodies the UAE’s fusion of innovation, culture, and imagination. As part of the tour, we’ll explore this architectural marvel and discover exhibitions that blend science, technology, and heritage—offering a glimpse into the future from the heart of Dubai.",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     },
     {
       id: "ferrari-world-abu-dhabi",
@@ -57,7 +57,7 @@ export default function CardsSection() {
       description:
         "Ferrari World Abu Dhabi, situated on Yas Island, is the world’s first Ferrari-branded theme park and home to the largest space frame structure ever built. This iconic destination features Formula Rossa — the fastest roller coaster on the planet — delivering an adrenaline rush like no other. Whether you're a thrill-seeker or a devoted Ferrari fan, Ferrari World promises an unforgettable experience and is a must-visit attraction in the UAE.",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     },
     {
       id: "img-world-of-adventure",
@@ -67,7 +67,7 @@ export default function CardsSection() {
       description:
         "IMG Worlds of Adventure is the world’s largest indoor theme and amusement park, located in Dubai, UAE. As Dubai's first mega-themed entertainment destination, it features six immersive adventure zones packed with thrilling rides, beloved cartoon characters, and adrenaline-pumping attractions. From Marvel superheroes to dinosaur adventures, IMG Worlds offers unforgettable fun for families and thrill-seekers alike — all under one climate-controlled roof. Step into a world of excitement and create lasting memories at Dubai’s premier indoor theme park.",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     },
     {
       id: "burj-khalifa-tour",
@@ -77,7 +77,7 @@ export default function CardsSection() {
       description:
         "Step into the clouds with our Burj Khalifa Tour and enjoy breathtaking views from the world’s tallest building. Ride the high-speed elevator to the observation deck, capture unforgettable photos, and take in the panoramic skyline from the iconic 'At The Top' experience. A must-visit for every traveler!",
       buttonText: "Book Now",
-      buttonLink: "https://wa.me/971500000000",
+      buttonLink: "https://wa.me/+971504247436",
     }
 
 
