@@ -10,7 +10,7 @@ export default function PackageOptionsCard({
   image,
   description,
   options = [], // Array of { label: string, price: string }
-  whatsappNumber = "+923499038984"
+  whatsappNumber = "+971504247436"
 }) {
   const { open } = useBooking();
   const [selected, setSelected] = useState(options[0]);
