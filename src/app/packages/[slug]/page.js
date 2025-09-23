@@ -89,7 +89,7 @@ export default async function PackagePage({ params }) {
             <CustomBookingModal pkg={pkg} />
 
             <a
-              href={`https://wa.me/923000000000?text=I%20want%20to%20book%20${encodeURIComponent(
+              href={`https://wa.me/+971504247436?text=I%20want%20to%20book%20${encodeURIComponent(
                 pkg.title
               )}`}
               target="_blank"

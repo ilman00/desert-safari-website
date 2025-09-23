@@ -1,10 +1,10 @@
 "use client";
 
 import { useBooking } from "./BookingContext";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import PhoneInput from './PhoneInputWrapper';
 import { newPackageData } from "@/data/packages";
-import PayPalButton from "./paypal/PayPalButton"; 
+import PayPalButton from "./paypal/PayPalButton";
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
@@ -20,6 +20,7 @@ export default function BookingModal() {
   const [bookingId, setBookingId] = useState(null);
   const [showPayPalButtons, setShowPayPalButtons] = useState(false);
   const [packages, setPackages] = useState([])
+  const paypalRef = useRef(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -135,6 +136,27 @@ export default function BookingModal() {
       setSelectedPayment(null);
     }
   };
+
+  useEffect(() => {
+    if (showPayPalButtons && bookingId && paypalRef.current) {
+      paypalRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest"
+      });
+
+      // add an offset after the smooth scroll finishes
+      setTimeout(() => {
+        const offset = 1000; // adjust until full button shows
+        paypalRef.current?.closest(".modal-body")?.scrollBy({
+          top: offset,
+          behavior: "smooth"
+        });
+      }, 500);
+
+
+    }
+  }, [showPayPalButtons, bookingId]);
 
   if (!mounted || !show || !currentSafari?.title) return null;
 
@@ -304,7 +326,7 @@ export default function BookingModal() {
               </form>
 
               {showPayPalButtons && bookingId && (
-                <div className="mt-4">
+                <div className="mt-4" ref={paypalRef}>
                   <PayPalButton bookingId={bookingId} price={totalPrice} description={packages} />
                 </div>
               )}
