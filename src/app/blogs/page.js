@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 async function getBlogs() {
-  const res = await fetch("http://localhost:4000/api/blogs", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, {
     next: { revalidate: 60 }, // ISR
   });
   return res.json();

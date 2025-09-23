@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import Blog from "@/models/Blog";
+import { dbConnect } from "@/lib/mongodb";
+import Blog from "@/models/Blogs";
 
 export async function GET(req, { params }) {
-  await connectDB();
+  await dbConnect();
   const blog = await Blog.findOne({ slug: params.slug, status: "published" });
 
   if (!blog) {
