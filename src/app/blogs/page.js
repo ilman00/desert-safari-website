@@ -5,6 +5,12 @@ async function getBlogs() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, {
         next: { revalidate: 60 }, // ISR
     });
+
+    if (!res.ok) {
+        console.error("Failed to fetch blogs", res.status, res.statusText);
+        return [];
+    }
+
     return res.json();
 }
 
