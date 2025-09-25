@@ -31,6 +31,7 @@ export default function SecondNavbar() {
           <ul className="navbar-nav mb-2 mb-lg-0 gap-lg-4">
             <li className="nav-item"><Link href="/" className="nav-link">Home</Link></li>
             <li className="nav-item"><Link href="/packages" className="nav-link">Our Safari Packages</Link></li>
+            <li className="nav-item"><Link href="/blogs" className="nav-link">Blogs</Link></li>
             <li className="nav-item"><Link href="/gallery" className="nav-link">Our Gallery</Link></li>
             <li className="nav-item"><Link href="/about-us" className="nav-link">About Us</Link></li>
             <li className="nav-item"><Link href="/contact-us" className="nav-link">Contact Us</Link></li>

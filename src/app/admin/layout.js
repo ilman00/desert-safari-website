@@ -1,6 +1,7 @@
 // components/TopNavbar.js
 
 import Link from "next/link";
+import ProtectedRoute from "@/components/protectRoutes/projectedRoutes";
 
 export default function AdminLayout({ children }) {
 
@@ -16,7 +17,7 @@ export default function AdminLayout({ children }) {
                         className="navbar-toggler me-3"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#navbarContent"
+                        data-bs-target="#adminDashboard"
                         aria-controls="navbarContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
@@ -24,8 +25,9 @@ export default function AdminLayout({ children }) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse justify-content-center" id="navbarContent">
+                    <div className="collapse navbar-collapse justify-content-center" id="adminDashboard">
                         <ul className="navbar-nav mb-2 mb-lg-0 gap-lg-4">
+                            <li className="nav-item bg-primary rounded"><Link href="/admin/blogs/new" className="nav-link text-light">Create blog</Link></li>
                             <li className="nav-item bg-secondary rounded"><Link href="/admin/custom-packages" className="nav-link text-light">Custom Packages</Link></li>
                             <li className="nav-item bg-success rounded"><Link href="/admin/create-custom-package" className="nav-link text-light">Create  Package</Link></li>
                         </ul>
@@ -33,11 +35,13 @@ export default function AdminLayout({ children }) {
 
                     {/* Booking Button triggers modal */}
                     <div className="d-none d-lg-block me-3">
-                        <Link href="/packages" className="btn btn-primary">Register An Admin</Link>
+                        <Link href="/admin/register" className="btn btn-primary">Register An Admin</Link>
                     </div>
                 </div>
             </nav>
-            {children}
+            <ProtectedRoute>
+                <div>{children}</div>
+            </ProtectedRoute>
         </>
     );
 }

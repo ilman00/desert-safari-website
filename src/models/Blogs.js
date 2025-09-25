@@ -11,6 +11,7 @@ const BlogSchema = new mongoose.Schema(
     publishedAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     status: { type: String, enum: ["draft", "published"], default: "published" },
+    tags: [{ type: String }], // <--- Added tags field
   },
   { timestamps: true }
 );

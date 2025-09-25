@@ -9,8 +9,8 @@ async function getBlogs() {
 }
 
 export const metadata = {
-    title: "Blog | YourSiteName",
-    description: "Read the latest articles and updates from YourSiteName.",
+    title: "Evening Desert tours",
+    description: "Read the latest articles and updates from Evening Desert tours.",
 };
 
 export default async function BlogsPage() {

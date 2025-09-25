@@ -10,13 +10,13 @@ export default function AdminRegisterPage() {
   const [success, setSuccess] = useState('');
   const router  = useRouter()
 
-  useEffect(()=>{
-    const token = localStorage.getItem("admin_token");
-    if(!token){
-        alert("Only admin has Access to this page")
-        router.push("/")
-    }
-  }, [router])
+  // useEffect(()=>{
+  //   const token = localStorage.getItem("admin_token");
+  //   if(!token){
+  //       alert("Only admin has Access to this page")
+  //       router.push("/")
+  //   }
+  // }, [router])
 
   const handleRegister = async (e) => {
     e.preventDefault();
