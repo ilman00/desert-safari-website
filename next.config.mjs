@@ -3,11 +3,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)', // Match all routes
+        source: '/(.*)',
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
+            value: 'index, follow',
           },
         ],
       },
@@ -15,7 +15,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["res.cloudinary.com"], // allow Cloudinary images
+    domains: ["res.cloudinary.com"],
   },
 };
 
