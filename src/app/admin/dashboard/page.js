@@ -2,39 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { jwtDecode } from 'jwt-decode'; // ✅ Correct
-
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
-      router.push('/admin/login');
-      return;
-    }
-
-    try {
-      const decoded = jwtDecode(token);
-      if (decoded.role !== 'admin') {
-        router.push('/admin/login');
-        return;
-      }
-    } catch (err) {
-      router.push('/admin/login');
-      return;
-    }
-
+    useEffect(() => {
     const fetchBookings = async () => {
       try {
+        
         const res = await fetch('/api/admin/bookings', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          method:"GET"
         });
+
         const data = await res.json();
         if (res.ok) {
           setBookings(data.bookings || []);

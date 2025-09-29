@@ -11,10 +11,7 @@ import Link from "next/link";
 export default function Footer() {
   const socialLinks = [
     { icon: FaFacebookF, url: "https://www.facebook.com/YourPage" },
-    { icon: FaTwitter, url: "https://www.twitter.com/YourProfile" },
-    { icon: FaInstagram, url: "https://www.instagram.com/YourHandle" },
-    { icon: FaYoutube, url: "https://www.youtube.com/YourChannel" },
-    { icon: FaLinkedinIn, url: "https://www.linkedin.com/company/YourCompany" },
+    { icon: FaInstagram, url: "https://www.instagram.com/muneebeesa/?igsh=MnE3ZnpydWpid2ht&utm_source=qr#" },
   ];
 
 
@@ -150,7 +147,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Safari Desert AE. All rights reserved.
           </p>
           <p className="mb-0" style={{ fontSize: "14px", opacity: 0.8 }}>
-            Developed with ❤️ by <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="text-light text-decoration-underline">Muhammad Ilman</a> And Ahmad
+            Developed with ❤️ by <a href="https://www.linkedin.com/in/muhammad-ilman-355b89264/" target="_blank" rel="noopener noreferrer" className="text-light text-decoration-underline">Muhammad Ilman</a> And Ahmad
           </p>
 
         </div>

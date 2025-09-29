@@ -32,7 +32,7 @@ export default function AdminPackagesList({ packages }) {
             )}
             <div className="card-body d-flex flex-column">
               <h5 className="card-title fw-semibold">{pkg.title}</h5>
-              <p className="text-success fw-bold mb-2">${pkg.price}</p>
+              <p className="text-success fw-bold mb-2">{pkg.price} AED </p>
 
               {pkg.expiryDate && (
                 <p className="small text-muted mb-2">

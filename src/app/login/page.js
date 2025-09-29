@@ -19,9 +19,9 @@ export default function AdminLoginPage() {
     });
 
     const data = await res.json();
-
-    if (res.ok && data.token) {
-      localStorage.setItem('admin_token', data.token); // ✅ store token
+    console.log("login Response: ", data);
+    
+    if (res.ok) {
       router.push('/admin/dashboard'); // ✅ redirect after login
     } else {
       setError(data.error || 'Login failed');

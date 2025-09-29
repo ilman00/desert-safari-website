@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import { dbConnect } from '@/lib/dbConnect';
 import Booking from '@/models/Booking'; // ✅ Import your actual Booking model
@@ -8,8 +9,10 @@ export async function GET(req) {
     await dbConnect();
 
     // ✅ Extract token from Authorization header
-    const authHeader = req.headers.get('authorization');
-    const token = authHeader?.split(' ')[1];
+    const cookieStore = await  cookies();
+    const token =  cookieStore.get("admin_token")?.value
+    // const authHeader = req.headers.get('authorization');
+    // const token = authHeader?.split(' ')[1];
 
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized: No token provided' }, { status: 401 });

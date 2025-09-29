@@ -130,9 +130,9 @@ export default function CustomPackageForm() {
 
 
   return (
-    <div className="container mt-4 mb-4">
+    <div className="container mt-4 mb-4 col-lg-8 rounded pb-1 shadow" style={{backgroundColor: "#c5c6d0"}}>
       <h2>Create Custom Package</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="mb-5" onSubmit={handleSubmit}>
         {/* Title */}
         <div className="mb-3">
           <label className="form-label">Title</label>
@@ -196,7 +196,7 @@ export default function CustomPackageForm() {
                   handleAddonChange(i, "name", e.target.value)
                 }
               />
-              <input
+              {/* <input
                 type="number"
                 placeholder="Price (optional)"
                 className="form-control me-2"
@@ -204,7 +204,7 @@ export default function CustomPackageForm() {
                 onChange={(e) =>
                   handleAddonChange(i, "price", e.target.value)
                 }
-              />
+              /> */}
             </div>
           ))}
           <button

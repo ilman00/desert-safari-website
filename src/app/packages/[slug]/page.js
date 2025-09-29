@@ -48,7 +48,7 @@ export default async function PackagePage({ params }) {
           <h1 className="card-title h2 fw-bold mb-3">{pkg.title}</h1>
 
           {/* Price */}
-          <h4 className="text-success fw-semibold mb-3">${pkg.price}</h4>
+          <h4 className="text-success fw-semibold mb-3">{pkg.price} AED</h4>
 
           {/* Description */}
           {pkg.description && (

@@ -1,4 +1,3 @@
-// app/api/admin/login/route.js
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -12,11 +11,13 @@ export async function POST(req) {
     const { email, password } = await req.json();
 
     if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Email and password are required' },
+        { status: 400 }
+      );
     }
 
     const admin = await Admin.findOne({ email });
-
     if (!admin) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
@@ -32,16 +33,17 @@ export async function POST(req) {
       { expiresIn: '7d' }
     );
 
-    // Option 1: Return token in response body
-    return NextResponse.json({ token }, { status: 200 });
+    // ✅ Set token in cookie (instead of returning in body)
+    const res = NextResponse.json({ message: 'Login successful' });
+    res.cookies.set('admin_token', token, {
+      httpOnly: true, // cannot be accessed from JS
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
 
-    // Option 2 (optional): Set token as HTTP-only cookie
-    // return NextResponse.json({ message: 'Login successful' }, {
-    //   status: 200,
-    //   headers: {
-    //     'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=604800`,
-    //   }
-    // });
+    return res;
 
   } catch (error) {
     console.error('Admin login error:', error);

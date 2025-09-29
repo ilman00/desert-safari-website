@@ -198,7 +198,7 @@ export default function CustomBookingModal({ pkg }) {
               {/* Price */}
               <div className="mb-3">
                 <label className="form-label">Price</label>
-                <p className="fw-bold text-success">${calcPrice.toFixed(2)}</p>
+                <p className="fw-bold text-success">{calcPrice.toFixed(2)} AED</p>
               </div>
 
               {/* Adults / Kids */}

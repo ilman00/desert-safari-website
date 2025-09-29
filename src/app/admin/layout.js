@@ -1,7 +1,6 @@
 // components/TopNavbar.js
 
 import Link from "next/link";
-import ProtectedRoute from "@/components/protectRoutes/projectedRoutes";
 
 export default function AdminLayout({ children }) {
 
@@ -39,9 +38,7 @@ export default function AdminLayout({ children }) {
                     </div>
                 </div>
             </nav>
-            <ProtectedRoute>
                 <div>{children}</div>
-            </ProtectedRoute>
         </>
     );
 }
