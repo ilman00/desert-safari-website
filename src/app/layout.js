@@ -18,6 +18,9 @@ const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
 export const metadata = {
   title: 'Desert Safari Dubai | Morning & Evening Desert Tours',
   description: 'Experience the thrill of morning and evening desert safaris in Dubai. Enjoy dune bashing, camel rides, sandboarding, BBQ dinner, and cultural shows. Book now!',
+  icon: {
+    icon: "/icon.png"
+  },
   keywords: [
     'desert safari dubai',
     'morning desert safari dubai',
