@@ -1,18 +1,30 @@
-// Example: fetch blog slugs dynamically from an API, database, or filesystem
+let cachedXml = null;
+let lastGenerated = 0;
+
 async function getBlogSlugs() {
-  // Replace this with your actual data source
-  const res = await fetch("https://www.eveningdeserttours.com/api/blogs");
+  const res = await fetch("https://www.eveningdeserttours.com/api/blogs", {
+    cache: "no-store",
+  });
   const blogs = await res.json();
   return blogs.map(b => b.slug);
 }
 
 export async function GET() {
+  const now = Date.now();
+
+  // Regenerate only once every 24 hours
+  if (cachedXml && now - lastGenerated < 86400000) {
+    return new Response(cachedXml, {
+      headers: {
+        "Content-Type": "application/xml",
+      },
+    });
+  }
+
   const baseUrl = "https://www.eveningdeserttours.com";
 
-  // Dynamic blog URLs
   const blogSlugs = await getBlogSlugs();
 
-  // Static pages
   const staticUrls = [
     "/",
     "/about-us",
@@ -29,15 +41,21 @@ export async function GET() {
   ];
 
   const urlsXml = allUrls
-    .map(url => `<url><loc>${url}</loc><changefreq>daily</changefreq><priority>0.7</priority></url>`)
+    .map(
+      url =>
+        `<url><loc>${url}</loc><changefreq>daily</changefreq><priority>0.7</priority></url>`
+    )
     .join("");
 
-  const body = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${urlsXml}
   </urlset>`;
 
-  return new Response(body, {
+  cachedXml = xml;
+  lastGenerated = now;
+
+  return new Response(xml, {
     headers: {
       "Content-Type": "application/xml",
     },
