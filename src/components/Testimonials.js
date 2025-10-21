@@ -97,8 +97,9 @@ export default function Reviews() {
                       <div className="card h-100 shadow-sm p-4 mx-2 border-0">
                         <StarRating rating={review.rating || 5} />
                         <p className="text-muted mb-4" style={{ minHeight: "80px" }}>
-                          "{review.message}"
+                          &ldquo;{review.message}&rdquo;
                         </p>
+
                         <div className="d-flex align-items-center mt-auto pt-3 border-top">
                           <Image
                             src={"/images/man.jpg"}
