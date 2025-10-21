@@ -3,8 +3,9 @@
 import { useEffect, useRef } from 'react';
 import { loadScript } from '@paypal/paypal-js';
 
-export default function PayPalButton({bookingId ,price , description}) {
+export default function PayPalButton({ bookingId, price, description }) {
   const loadedRef = useRef(false);
+  console.log("Paypal CLient Id", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_LIVE);
 
   useEffect(() => {
     if (!price) {
@@ -43,7 +44,7 @@ export default function PayPalButton({bookingId ,price , description}) {
             const res = await fetch('/api/paypal/create-order', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ price, bookingId , description}),
+              body: JSON.stringify({ price, bookingId, description }),
             });
 
             const data = await res.json();
@@ -59,7 +60,15 @@ export default function PayPalButton({bookingId ,price , description}) {
 
             const details = await res.json();
             if (details.status === 'COMPLETED') {
-              alert("✅ Payment successful!");
+              const params = new URLSearchParams({
+                name: description,
+                price: price,
+                bookingId: bookingId,
+                currency: 'USD',
+              });
+
+              window.location.href = `/thank-you?${params.toString()}`;
+              
             } else {
               alert("⚠️ Payment not completed.");
             }

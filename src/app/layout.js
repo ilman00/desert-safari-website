@@ -1,4 +1,3 @@
-// app/layout.js
 import TopNavbar from '@/components/Topnavbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -9,11 +8,10 @@ import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton';
 import { BookingProvider } from "@/components/BookingContext";
 import BookingModal from "@/components/BookingModal";
 import { Playfair_Display, Lato } from 'next/font/google';
+import Script from "next/script"; // ✅ import Script for Google Tag
 
 const playfair = Playfair_Display({ subsets: ['latin'], weight: ['700'] });
 const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
-
-
 
 export const metadata = {
   title: 'Desert Safari Dubai | Morning & Evening Desert Tours',
@@ -41,7 +39,7 @@ export const metadata = {
     siteName: 'Evening Desert Tours',
     images: [
       {
-        url: 'https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp', // Replace with real image
+        url: 'https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp',
         width: 1200,
         height: 630,
         alt: 'Dubai Desert Safari - Morning & Evening',
@@ -54,7 +52,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Dubai Desert Safari | Morning & Evening Tours',
     description: 'Explore Dubai desert with morning and evening safari options. Thrilling dune rides, camel treks, and cultural shows await. Reserve your adventure!',
-    images: ['https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp'], // Replace with real image
+    images: ['https://eveningdeserttours.com/images/Evening_Desert_Safari_Dubai.webp'],
   },
   robots: {
     index: true,
@@ -64,20 +62,30 @@ export const metadata = {
   metadataBase: new URL('https://eveningdeserttours.com'),
 };
 
-
-
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.className} ${playfair.className}`}>
-
       <head>
         <link rel="icon" href="/safari-icon.png" />
+
+        {/* ✅ Google Ads Global Tag */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17274073545"
+        />
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17274073545');
+          `}
+        </Script>
       </head>
 
       <body>
         <BootstrapClient />
-        <div >
+        <div>
           <BookingProvider>
             <TopNavbar />
             <SecondNavbar />
@@ -87,7 +95,6 @@ export default function RootLayout({ children }) {
             <WhatsAppFloatingButton />
           </BookingProvider>
         </div>
-
       </body>
     </html>
   );

@@ -29,6 +29,7 @@ export default function AdminLayout({ children }) {
                             <li className="nav-item bg-primary rounded"><Link href="/admin/blogs/new" className="nav-link text-light">Create blog</Link></li>
                             <li className="nav-item bg-secondary rounded"><Link href="/admin/custom-packages" className="nav-link text-light">Custom Packages</Link></li>
                             <li className="nav-item bg-success rounded"><Link href="/admin/create-custom-package" className="nav-link text-light">Create  Package</Link></li>
+                            <li className="nav-item bg-warning rounded"><Link href="/admin/create-custom-package" className="nav-link text-light">Reviews</Link></li>
                         </ul>
                     </div>
 

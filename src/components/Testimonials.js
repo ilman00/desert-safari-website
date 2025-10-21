@@ -1,98 +1,165 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Testimonials() {
- 
-  const testimonials = [
-    {
-      name: 'Ayesha Khan',
-      role: 'Tourist from Pakistan',
-      image: '/images/girl.png',
-      message: 'The city tour was incredible! Well organized and the guide was super friendly. Highly recommended!',
-    },
-    {
-      name: 'John Smith',
-      role: 'Traveler from UK',
-      image: '/images/man.jpg',
-      message: 'A seamless experience from pickup to drop-off. Truly the best way to explore Dubai’s highlights.',
-    },
-    {
-      name: 'Fatima Ali',
-      role: 'Visitor from KSA',
-      image: '/images/girl.png',
-      message: 'Loved every moment of the desert safari. Great service and unforgettable views!',
-    },
-    {
-      name: 'Ali Raza',
-      role: 'Backpacker from Lahore',
-      image: '/images/man.png',
-      message: 'Affordable and professional — I’ll book again on my next visit to the UAE!',
-    },
-    {
-      name: 'Emma Watson',
-      role: 'Frequent Flyer',
-      image: '/images/girl.png',
-      message: 'Clean vehicles, kind drivers, and epic views. My favorite tour experience ever!',
-    },
-  ];
+export default function Reviews() {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Group testimonials in sets of 3
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch("/api/reviews", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to fetch reviews");
+        const data = await res.json();
+        setReviews(data);
+      } catch (err) {
+        console.error("Error fetching reviews:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
   const groups = [];
-  for (let i = 0; i < testimonials.length; i += 3) {
-    groups.push(testimonials.slice(i, i + 3));
+  for (let i = 0; i < reviews.length; i += 3) {
+    groups.push(reviews.slice(i, i + 3));
+  }
+
+  const averageRating =
+    reviews.length > 0
+      ? (reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length).toFixed(1)
+      : 0;
+
+  const StarRating = ({ rating }) => (
+    <div className="mb-2">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <i
+          key={star}
+          className={`bi bi-star${star <= rating ? "-fill" : ""} text-warning`}
+          style={{ fontSize: "1.1rem", marginRight: "2px" }}
+        ></i>
+      ))}
+    </div>
+  );
+
+  if (loading) {
+    return (
+      <section className="container py-5 text-center">
+        <p>Loading reviews...</p>
+      </section>
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <section className="container py-5 text-center">
+        <p>No reviews yet.</p>
+      </section>
+    );
   }
 
   return (
-    <section className="container-fluid py-5" id="testimonials">
-      <h2 className="text-center mb-4">What Our Guests Say</h2>
+    <section className="container-fluid py-5 bg-light" id="reviews">
+      <div className="container">
+        <div className="text-center mb-5">
+          <h2 className="mb-3">Customer Reviews</h2>
+          <div className="d-flex align-items-center justify-content-center mb-2">
+            <div className="me-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <i
+                  key={star}
+                  className="bi bi-star-fill text-warning"
+                  style={{ fontSize: "1.3rem" }}
+                ></i>
+              ))}
+            </div>
+            <span className="fs-4 fw-bold">{averageRating}</span>
+          </div>
+          <p className="text-muted">Based on {reviews.length} reviews</p>
+        </div>
 
-      <div id="testimonialCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-        <div className="carousel-inner">
-          {groups.map((group, i) => (
-            <div key={i} className={`carousel-item ${i === 0 ? 'active' : ''}`}>
-              <div className="row">
-                {group.map((t, index) => (
-                  <div key={index} className="col-md-4">
-                    <div className="card h-100 shadow-sm p-4 mx-2">
-                      <i className="bi bi-quote text-warning fs-2 mb-3"></i>
-                      <p className="text-muted">{t.message}</p>
-                      <div className="d-flex align-items-center mt-3">
-                        <Image
-                          src={t.image}
-                          alt={t.name}
-                          className="rounded-circle me-3"
-                          width="50"
-                          height="50"
-                          style={{ objectFit: 'cover' }}
-                        />
-                        <div>
-                          <strong>{t.name}</strong>
-                          <div className="text-muted" style={{ fontSize: '0.85rem' }}>
-                            {t.role}
+        <div
+          id="reviewCarousel"
+          className="carousel slide"
+          data-bs-ride="carousel"
+          data-bs-interval="5000"
+        >
+          <div className="carousel-inner">
+            {groups.map((group, i) => (
+              <div key={i} className={`carousel-item ${i === 0 ? "active" : ""}`}>
+                <div className="row">
+                  {group.map((review) => (
+                    <div key={review._id} className="col-md-4 mb-3 mb-md-0">
+                      <div className="card h-100 shadow-sm p-4 mx-2 border-0">
+                        <StarRating rating={review.rating || 5} />
+                        <p className="text-muted mb-4" style={{ minHeight: "80px" }}>
+                          "{review.message}"
+                        </p>
+                        <div className="d-flex align-items-center mt-auto pt-3 border-top">
+                          <Image
+                            src={"/images/man.jpg"}
+                            alt={review.name}
+                            className="rounded-circle me-3"
+                            width="50"
+                            height="50"
+                            style={{ objectFit: "cover" }}
+                          />
+                          <div>
+                            <strong className="d-block">{review.name}</strong>
+                            <small className="text-muted">{review.date?.slice(0, 10)}</small>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Dots */}
-        <div className="carousel-indicators mt-4">
-          {groups.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              data-bs-target="#testimonialCarousel"
-              data-bs-slide-to={index}
-              className={index === 0 ? 'active' : ''}
-              aria-label={`Slide ${index + 1}`}
-            ></button>
-          ))}
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#reviewCarousel"
+            data-bs-slide="prev"
+            style={{ width: "5%" }}
+          >
+            <span
+              className="carousel-control-prev-icon bg-dark rounded-circle p-3"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#reviewCarousel"
+            data-bs-slide="next"
+            style={{ width: "5%" }}
+          >
+            <span
+              className="carousel-control-next-icon bg-dark rounded-circle p-3"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+
+          <div className="carousel-indicators position-relative mt-4">
+            {groups.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                data-bs-target="#reviewCarousel"
+                data-bs-slide-to={index}
+                className={index === 0 ? "active" : ""}
+                aria-label={`Slide ${index + 1}`}
+              ></button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

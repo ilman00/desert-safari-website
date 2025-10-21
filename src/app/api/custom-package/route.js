@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import {dbConnect} from "@/lib/dbConnect"; // your db connection helper
-import {CustomPackage} from "@/models/CustomPackageSchema";  // your Mongoose model
+import { dbConnect } from "@/lib/dbConnect"; // your db connection helper
+import { CustomPackage } from "@/models/CustomPackageSchema";  // your Mongoose model
 
 // GET all packages
 export async function GET() {

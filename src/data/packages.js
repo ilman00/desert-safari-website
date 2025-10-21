@@ -31,7 +31,7 @@ export const newPackageData = [
           {
             name: "Evening Desert Safari",
             btnVal: "Basic",
-            price: "99 AED | Per Person",
+            price: "1 AED | Per Person",
             isGroupPackage: false,
             features: [...features],
           },
@@ -41,6 +41,33 @@ export const newPackageData = [
             price: "149 AED | Per Person",
             isGroupPackage: false,
             features: [...features, "💎 VIP Setting Area", "🍽️ Unlimited Buffet"],
+          },
+          {
+            name: "VIP Evening Safari",
+            btnVal: "VVIP",
+            price: "289 AED | Per Person",
+            isGroupPackage: false,
+            features: [
+              '🚙 Pickup & Drop off by 4×4 Vehicle',
+              '⏰ Pickup Time: 3:00 – 3:30 pm',
+              '🏨 Pick and Drop from Hotel/Home',
+              '🚗 30–40 mins Dune Bashing',
+              '🏄 Sand Boarding',
+              '📸 Picture Point in Desert',
+              '☕ Arabic Coffee & Fresh Dates',
+              '💨 Hubbly Bubblee (Sheesha)',
+              '👗 Traditional Costumes',
+              '🥤 Unlimited Soft Drinks, Tea, Coffee, & Water',
+              '🌸 Henna Painting',
+              '💃 Belly Dance',
+              '🔥 Fire Show',
+              '🎭 Tanura Show',
+              '🍖 Five star BBQ Dinner',
+              '🍽️ Fourty Plus dishes',
+              '🏕️ Traditional Arabic Camp',
+              '⏰ Dropoff Time: 9:30 – 9:45 pm'
+            ]
+            ,
           },
           {
             name: "Private Vahicle 4x4 Evening Desert Safari",
