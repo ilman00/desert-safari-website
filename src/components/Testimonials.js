@@ -46,6 +46,7 @@ export default function Reviews() {
     </div>
   );
 
+  
   if (loading) {
     return (
       <section className="container py-5 text-center">
