@@ -15,7 +15,7 @@ export default function WhatsAppFloatingButton() {
     <div
       className="position-fixed z-3"
       style={{
-        bottom: "40px", // Small bottom gap
+        bottom: "80px", // Small bottom gap
         right: "20px",  // Small right gap
       }}
     >

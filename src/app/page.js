@@ -5,11 +5,12 @@ import PackagesSection from "../components/PackageSection";
 import DubaiCityTourSection from "../components/DubaiCityTourSection";
 import DiscoverSection from "../components/DiscoverSection";
 import { newPackageData } from "@/data/packages";
+import ReCaptcha from "@/components/ReCaptcha";
 
 export default function HomePage() {
   return (
     <>
-      
+
       <Hero />
       {newPackageData.map((section, index) => (
         <PackagesSection
@@ -19,10 +20,12 @@ export default function HomePage() {
           cards={section.cards}
         />
       ))}
-     
+
       <DubaiCityTourSection />
       <DiscoverSection />
       <Testimonials />
+      <ReCaptcha />
+
     </>
   );
 }

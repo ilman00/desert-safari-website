@@ -2,20 +2,24 @@ import { dbConnect } from "@/lib/dbConnect";
 import Booking from "../../../models/Booking";
 import nodemailer from "nodemailer";
 
+// Optional if using Node 18+, otherwise uncomment next line
+// import fetch from "node-fetch";
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // Gmail address
-    pass: process.env.EMAIL_PASS, // App password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
 async function sendEmail(orderData) {
-  const info = await transporter.sendMail({
-    from: `"Safari Booking" <${process.env.EMAIL_USER}>`,
-    to: process.env.OWNER_EMAIL,
-    subject: "🛑 New Booking – Payment Pending",
-    text: `A new booking has been received. The customer has not completed payment yet or selected online payment.
+  try {
+    const info = await transporter.sendMail({
+      from: `"Safari Booking" <${process.env.EMAIL_USER}>`,
+      to: process.env.OWNER_EMAIL,
+      subject: "🛑 New Booking – Payment Pending",
+      text: `A new booking has been received.
 
 Booking Details:
 - Name: ${orderData.name}
@@ -28,16 +32,39 @@ Booking Details:
 - Price: ${orderData.price} AED
 - Message: ${orderData.message || "No message"}
 
-Please follow up with the customer to confirm and arrange payment.
-    `,
-  });
+Please follow up with the customer.`,
+    });
 
-  console.log("📧 Email sent:", info.messageId);
+    console.log("📧 Email sent:", info.messageId);
+  } catch (error) {
+    console.error("❌ Failed to send email:", error);
+  }
 }
 
 export async function POST(req) {
   try {
     const body = await req.json();
+    const recaptchaToken = body.recaptchaToken; // Match frontend field
+    const reCaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+
+    // Verify reCAPTCHA first
+    const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${reCaptchaSecret}&response=${recaptchaToken}`,
+    });
+
+    const verifyData = await verifyRes.json();
+    console.log("ReCAPTCHA verifyData:", verifyData);
+
+    if (!verifyData.success || verifyData.score < 0.5) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Failed reCAPTCHA verification" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Only connect to DB if reCAPTCHA passed
     await dbConnect();
 
     const booking = new Booking({
@@ -45,9 +72,7 @@ export async function POST(req) {
       email: body.email || "",
       phone: body.phone,
       pickupLocation: body.pickupLocation,
-      safariPackages: Array.isArray(body.packages)
-        ? body.packages
-        : [body.packages],
+      safariPackages: Array.isArray(body.packages) ? body.packages : [body.packages],
       price: body.price,
       adults: body.adults,
       kids: body.kids,
@@ -56,18 +81,17 @@ export async function POST(req) {
 
     const bookedPackage = await booking.save();
 
-    // Send email to admin
     await sendEmail(bookedPackage);
 
     return new Response(
       JSON.stringify({ success: true, id: bookedPackage._id }),
-      { status: 201 }
+      { status: 201, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("Booking API error:", error);
     return new Response(
       JSON.stringify({ success: false, error: "Server error" }),
-      { status: 500 }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }

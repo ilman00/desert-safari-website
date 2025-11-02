@@ -5,6 +5,8 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import PhoneInput from './PhoneInputWrapper';
 import { newPackageData } from "@/data/packages";
 import PayPalButton from "./paypal/PayPalButton";
+import ReCaptcha from './ReCaptcha'
+
 
 export default function BookingModal() {
   const { show, close, selectedSafari } = useBooking();
@@ -20,6 +22,9 @@ export default function BookingModal() {
   const [bookingId, setBookingId] = useState(null);
   const [showPayPalButtons, setShowPayPalButtons] = useState(false);
   const [packages, setPackages] = useState([])
+  const [captchaToken, setCaptchaToken] = useState('')
+
+
   const paypalRef = useRef(null);
 
   useEffect(() => setMounted(true), []);
@@ -98,6 +103,11 @@ export default function BookingModal() {
     e.preventDefault();
     setLoading(true);
 
+     const recaptchaToken = await window.grecaptcha.execute(
+      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      { action: 'submit' }
+    );
+
     const formData = new FormData(e.target);
     const data = {
       name: formData.get("name"),
@@ -108,6 +118,7 @@ export default function BookingModal() {
       adults: formAdults,
       kids: formKids,
       message: formData.get("message") || "",
+      recaptchaToken
     };
     setPackages(data.packages)
     try {
@@ -282,6 +293,7 @@ export default function BookingModal() {
                   <div className="alert alert-success text-center py-2" role="alert">
                     💳 Enjoy 5% OFF when you pay online — secure your spot now!
                   </div>
+
 
                   <div className="col-12 d-flex gap-3">
                     <button
