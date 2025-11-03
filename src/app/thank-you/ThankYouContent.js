@@ -1,7 +1,6 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
 export default function ThankYouContent() {
@@ -11,12 +10,24 @@ export default function ThankYouContent() {
   useEffect(() => {
     const booking = {
       name: params.get('name'),
-      price: parseFloat(params.get('price')),
+      price: parseFloat(params.get('price')) || 0,
       bookingId: params.get('bookingId'),
       currency: params.get('currency') || 'AED',
     };
     setDetails(booking);
   }, [params]);
+
+  // ✅ Fire Google Ads conversion once details are loaded
+  useEffect(() => {
+    if (details && typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-17520497621/cpiqCNuzobkbENWntqJB',
+        value: details.price,
+        currency: details.currency,
+      });
+      console.log('✅ Google Ads conversion fired:', details);
+    }
+  }, [details]);
 
   if (!details) return null;
 
@@ -30,18 +41,6 @@ export default function ThankYouContent() {
         Amount Paid: <strong>{details.price} {details.currency}</strong>
       </p>
       <p>Booking ID: {details.bookingId}</p>
-
-      <Script id="google-conversion" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('event', 'conversion', {
-            send_to: 'AW-17274073545/AbCdEfGhIjKlmNoPqR',
-            value: ${details.price},
-            currency: '${details.currency}'
-          });
-        `}
-      </Script>
     </div>
   );
 }

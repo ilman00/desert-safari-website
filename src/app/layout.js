@@ -71,14 +71,14 @@ export default function RootLayout({ children }) {
         {/* ✅ Google Ads Global Tag */}
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17274073545"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17520497621"
         />
         <Script id="google-ads-tag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-17274073545');
+            gtag('config', 'AW-17520497621');
           `}
         </Script>
       </head>
