@@ -8,7 +8,7 @@ import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton';
 import { BookingProvider } from "@/components/BookingContext";
 import BookingModal from "@/components/BookingModal";
 import { Playfair_Display, Lato } from 'next/font/google';
-import Script from "next/script"; // ✅ import Script for Google Tag
+import Script from "next/script"; // ✅ Import Script
 
 const playfair = Playfair_Display({ subsets: ['latin'], weight: ['700'] });
 const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
@@ -68,22 +68,13 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/safari-icon.png" />
 
-        {/* ✅ Google Ads Global Tag */}
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17520497621"
-        />
-        <Script id="google-ads-tag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17520497621');
-          `}
-        </Script>
+        <Script id="gtag-base" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-17520497621" /> 
+        <Script id="gtag-init" strategy="afterInteractive"> {` window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17520497621'); `} </Script>
       </head>
 
       <body>
+       
+
         <BootstrapClient />
         <div>
           <BookingProvider>
