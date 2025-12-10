@@ -1,95 +1,97 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { loadScript } from '@paypal/paypal-js';
 
-export default function PayPalButton({ bookingId, price, description }) {
-  const loadedRef = useRef(false);
-  console.log("Paypal CLient Id", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_LIVE);
+export default function PayPalButton({ bookingId, description }) {
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!price) {
-      console.warn("⛔ Price is missing. PayPal button won't load.");
+    if (!bookingId) return;
+    if (!window.paypal) {
+      console.error("PayPal SDK not loaded");
       return;
     }
 
-    if (loadedRef.current) return;
-    loadedRef.current = true;
-
-    const loadPayPal = async () => {
-      try {
-        // Load PayPal SDK script
-        await loadScript({
-          'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_LIVE,
-          'disable-funding': 'venmo,paylater',
-          components: 'buttons',
+    const buttons = window.paypal.Buttons({
+      createOrder: async () => {
+        const res = await fetch('/api/paypal/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingId, description }),
         });
 
-        if (!window.paypal) {
-          throw new Error("PayPal SDK not available after script load.");
+        const data = await res.json();
+
+        console.log("Create order API response:", data);  // 👈 ADD THIS
+
+        if (!data?.id) {
+          console.error("CreateOrder ERROR: No order id returned", data);
+          throw new Error("No order id returned");
         }
 
-        // Clean up any previous renders (important if button reloads)
-        const container = document.getElementById('paypal-button-container');
-        if (container) container.innerHTML = '';
+        return data.id;
+      },
 
-        window.paypal.Buttons({
-          style: {
-            layout: 'vertical',
-            color: 'black',
-            shape: 'rect',
-            label: 'pay',
-          },
-          createOrder: async () => {
-            const res = await fetch('/api/paypal/create-order', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ price, bookingId, description }),
-            });
 
-            const data = await res.json();
-            if (!data.id) throw new Error("No order ID returned");
-            return data.id;
-          },
-          onApprove: async (data) => {
-            const res = await fetch('/api/paypal/capture-order', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ orderID: data.orderID, bookingId, description }),
-            });
+      onApprove: async (data) => {
+        const res = await fetch('/api/paypal/capture-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderID: data.orderID, bookingId, description }),
+        });
 
-            const details = await res.json();
-            if (details.status === 'COMPLETED') {
-              const params = new URLSearchParams({
-                name: description,
-                price: price,
-                bookingId: bookingId,
-                currency: 'USD',
-              });
+        const result = await res.json();
+        console.log("Capture result:", result);
 
-              window.location.href = `/thank-you?${params.toString()}`;
-              
-            } else {
-              alert("⚠️ Payment not completed.");
-            }
-          },
-          onError: (err) => {
-            console.error("PayPal Error:", err);
-            alert("❌ PayPal payment failed.");
-          },
-        }).render('#paypal-button-container');
-      } catch (error) {
-        console.error("🚫 Failed to initialize PayPal Buttons:", error);
+        // ⛔ Handle PayPal card decline here
+        if (result?.details?.[0]?.description?.includes("This card")) {
+          alert(
+            "Your card cannot be used for this payment.\n" +
+            "PayPal does not support cards issued in your country.\n" +
+            "Please try using a card from a PayPal-supported region."
+          );
+          return;
+        }
+
+        // ⛔ Handle general payment failure
+        if (result?.status && result.status !== "COMPLETED") {
+          alert("Payment failed. Please try again or use another card.");
+          return;
+        }
+
+        // ✅ Success
+        if (result.status === "COMPLETED") {
+          window.location.href = `/thank-you?bookingId=${bookingId}`;
+        }
       }
+      ,
+
+      onError: (err) => {
+        console.error("PayPal Error:", err);
+
+        // Detect card submission error
+        if (err?.error_message?.includes("This card can’t be used for your payment")) {
+          alert(
+            "Your card cannot be used for this payment.\n" +
+            "PayPal does not support cards issued in your country. " +
+            "Please try using a card from a PayPal-supported region."
+          );
+          return;
+        }
+
+        // Default fallback error
+        alert("Something went wrong while processing your payment. Please try again.");
+      }
+
+    });
+
+    buttons.render(containerRef.current);
+
+    return () => {
+      buttons?.close();
     };
 
-    loadPayPal();
-  }, [price, bookingId, description]);
+  }, [bookingId, description]);
 
-  return (
-    <div
-      id="paypal-button-container"
-      aria-label="PayPal payment button"
-    />
-  );
+  return <div ref={containerRef} id="paypal-button-container" />;
 }

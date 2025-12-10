@@ -5,7 +5,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import PhoneInput from './PhoneInputWrapper';
 import { newPackageData } from "@/data/packages";
 import PayPalButton from "./paypal/PayPalButton";
-import ReCaptcha from './ReCaptcha'
+import ReCaptcha from './ReCaptcha';
 
 
 export default function BookingModal() {
@@ -17,6 +17,9 @@ export default function BookingModal() {
   const [addOnVariants, setAddOnVariants] = useState([]);
   const [mounted, setMounted] = useState(false);
 
+  // New state for the pickup date
+  const [pickupDate, setPickupDate] = useState('');
+
   const [formAdults, setFormAdults] = useState(1);
   const [formKids, setFormKids] = useState(0);
   const [bookingId, setBookingId] = useState(null);
@@ -26,6 +29,9 @@ export default function BookingModal() {
 
 
   const paypalRef = useRef(null);
+
+  // Utility to get today's date in YYYY-MM-DD format for the date input minimum
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
 
   useEffect(() => setMounted(true), []);
 
@@ -103,7 +109,7 @@ export default function BookingModal() {
     e.preventDefault();
     setLoading(true);
 
-     const recaptchaToken = await window.grecaptcha.execute(
+      const recaptchaToken = await window.grecaptcha.execute(
       process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       { action: 'submit' }
     );
@@ -113,6 +119,7 @@ export default function BookingModal() {
       name: formData.get("name"),
       phone,
       pickupLocation: formData.get("pickupLocation"),
+      pickupDate: formData.get("pickupDate"), // <-- Added pickup date here
       packages: [currentSafari?.title, ...addOnVariants.map(v => v.name)],
       price: totalPrice,
       adults: formAdults,
@@ -202,6 +209,20 @@ export default function BookingModal() {
                       }}
                     />
                   </div>
+                  
+                  {/* New Pickup Date field added here */}
+                  <div className="col-md-6">
+                    <label className="form-label">Pickup Date <strong className="text-danger">*</strong></label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="pickupDate"
+                      required
+                      value={pickupDate}
+                      onChange={(e) => setPickupDate(e.target.value)}
+                      min={today}
+                    />
+                  </div>
 
                   <div className="col-md-6">
                     <label className="form-label">Pickup Location</label>
@@ -218,7 +239,7 @@ export default function BookingModal() {
                     />
                     <input type="hidden" name="package" value={currentSafari.title} />
                   </div>
-
+                  
                   <div className="col-md-4">
                     <label className="form-label">Base Price</label>
                     <input

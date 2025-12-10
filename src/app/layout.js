@@ -68,12 +68,12 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/safari-icon.png" />
 
-        <Script id="gtag-base" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-17520497621" /> 
+        <Script id="gtag-base" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-17520497621" />
         <Script id="gtag-init" strategy="afterInteractive"> {` window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17520497621'); `} </Script>
       </head>
 
       <body>
-       
+
 
         <BootstrapClient />
         <div>
@@ -81,6 +81,10 @@ export default function RootLayout({ children }) {
             <TopNavbar />
             <SecondNavbar />
             {children}
+            <Script
+              src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_LIVE}&components=buttons`}
+              strategy="afterInteractive"
+            />
             <Footer />
             <BookingModal />
             <WhatsAppFloatingButton />
